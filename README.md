@@ -76,6 +76,7 @@ So we present you with an optional object as an alternative.
 5. You can get the value:
     ```python
     thing = some_func_returning_an_optional()
+    ...
     print(thing.get())
     ```
     instead of:
@@ -83,7 +84,7 @@ So we present you with an optional object as an alternative.
     print(thing)
     ```
 
-6. You **can't** get the value without first checking for presence:
+6. But you **can't** get the value without first checking for presence:
     ```python
     thing = some_func_returning_an_optional()
     print(thing.get()) # **will raise an exception**
