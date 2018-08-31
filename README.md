@@ -18,7 +18,7 @@ reference, simply because it was so easy to implement."
 What can you do to prevent these kinds of checks?  You can write defensively:
 ```python
 something = stuff.getSomeThing()
-if something is not Null:
+if something is not None:
     thing = something.getAnotherThing()
 ```
 However if we add to our chain you can imagine how the nesting of defensive checks gets ugly quickly. There is plenty
