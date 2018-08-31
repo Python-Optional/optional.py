@@ -4,30 +4,28 @@ An Implementation of the Optional Object for Python
 ## Why
 
 There is a difference between `None` as Empty and `None` as the result for an Error.  A common bad practice is to
-return `None` to indicate the absence of something.  For example:
+return `None` to indicate the absence of something.  This can cause issues.
+
+For example:
 ```python
 thing = stuff.getSomeThing().getAnotherThing()
 ```
-What will happen if the result from getSomeThing returns None?  We will get an `AttributeError: 'NoneType' object has
+What will happen if the result from getSomeThing returns `None`?  We will get an `AttributeError: 'NoneType' object has
 no attribute 'getAnotherThing'`.
 
-To give some historical context, Tony Hoare—one of the giants of computer science—wrote, "I call it my billion-dollar
-mistake. It was the invention of the null reference in 1965. I couldn't resist the temptation to put in a null
-reference, simply because it was so easy to implement."
-
-What can you do to prevent these kinds of checks?  You can write defensively:
+What can you do to prevent these kinds of exceptions?  You can write defensively:
 ```python
 something = stuff.getSomeThing()
 if something is not None:
     thing = something.getAnotherThing()
 ```
-However if we add to our chain you can imagine how the nesting of defensive checks gets ugly quickly. There is plenty
-of information out there on why coding defensively is not a great idea, which is beyond the scope of this README.
+However, if we add to our chain, you can imagine how the nesting of defensive checks gets ugly quickly. There is plenty
+of information out there on why defensive coding is not a great idea, which is beyond the scope of this README.
 
 Ultimately, these defensive checks are annoying and obfuscate our actual business logic (decreasing the readability).
-Furthermore it is an error prone process, because it is easy to forget to do the null checks everywhere.
+Furthermore it is an error prone process, because it is easy to forget to do the checks everywhere.
 
-So we present you with an optional object as an alternative.
+So we present you with an **Optional** object as an alternative.
 
 ## Usage
 
