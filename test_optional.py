@@ -144,6 +144,21 @@ class TestOptional(unittest.TestCase):
         self.assertTrue(res.is_present())
         self.assertEqual("thingPANTS", res.get())
 
+    def test_optional_not_equal_with_non_optional(self):
+        self.assertNotEqual("PANTS", Optional.of("PANTS"))
+
+    def test_empty_optionals_are_equal(self):
+        self.assertEqual(Optional.empty(), Optional.empty())
+
+    def test_empty_optional_not_equal_non_empty_optional(self):
+        self.assertNotEqual(Optional.empty(), Optional.of("thing"))
+
+    def test_non_empty_optionals_with_non_equal_content_are_not_equal(self):
+        self.assertNotEqual(Optional.of("PANTS"), Optional.of("thing"))
+
+    def test_non_empty_optionals_with_equal_content_are_equal(self):
+        self.assertEqual(Optional.of("PANTS"), Optional.of("PANTS"))
+
 
 if __name__ == '__main__':
     unittest.main()
