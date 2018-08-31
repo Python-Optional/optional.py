@@ -114,7 +114,7 @@ So we present you with an optional object as an alternative.
         print(None) # very odd
     ```
 
-8. **Best Usage:** You can chain on presence:
+8. **__Best Usage:__** You can chain on presence:
     ```python
     thing = some_func_returning_an_optional()
     thing.if_present(lambda thing: print(thing))
@@ -125,10 +125,10 @@ So we present you with an optional object as an alternative.
         print(thing)
     ```
 
-9. **Best Usage:** You can chain on non presence:
+9. **__Best Usage:__** You can chain on non presence:
     ```python
     thing = some_func_returning_an_optional()
-    thing.if_present(lambda thing: print(thing)).or_else(lambda _: print("PANTS!")
+    thing.if_present(lambda thing: print(thing)).or_else(lambda _: print("PANTS!"))
     ```
     instead of:
     ```python
@@ -138,9 +138,28 @@ So we present you with an optional object as an alternative.
         print("PANTS!")
     ```
 
-
-
-
+10. **__Best Usage:__** You can map a function:
+    ```python
+    def mapping_func(thing):
+        return thing + "PANTS"
+    
+    thing_to_map = Optional.of("thing")
+    mapped_thing = thing_to_map.map(mapping_func) # returns Optional.of("thingPANTS")
+    ```
+    Note that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
+    if you call `map` on an empty optional it will return `Optional.empty()`.
+    
+11. **__Best Usage:__** You can flat map a function which returns an Optional.
+    ```python
+    def flat_mapping_func(thing):
+        return Optional.of(thing + "PANTS")
+    
+    thing_to_map = Optional.of("thing")
+    mapped_thing = thing_to_map.map(mapping_func) # returns Optional.of("thingPANTS")
+    ```
+    Note that this does not return an Optional of an Optional.  __Use this for mapping functions which return optionals.__ 
+    If the mapping function you use with this does not return an Optional, calling `flat_map` will raise a
+    `FlatMapFunctionDoesNotReturnOptionalException`.
 
 
 

@@ -1,6 +1,6 @@
 import unittest
 
-from optional import Optional, OptionalAccessWithoutCheckingPresenceException, OptionalAccessOfEmptyException
+from optional import Optional, OptionalAccessWithoutCheckingPresenceException, OptionalAccessOfEmptyException, FlatMapFunctionDoesNotReturnOptionalException
 
 
 class TestOptional(unittest.TestCase):
@@ -15,6 +15,10 @@ class TestOptional(unittest.TestCase):
     def test_instantiate_with_content(self):
         optional = Optional.of("something")
         self.assertFalse(optional.is_empty())
+
+    def test_instantiate_with_none(self):
+        optional = Optional.of(None)
+        self.assertTrue(optional.is_empty())
 
     def test_is_present_with_content(self):
         optional = Optional.of("thing")
@@ -78,6 +82,67 @@ class TestOptional(unittest.TestCase):
         optional.if_present(some_thing_consumer).or_else(or_else_procedure)
         self.assertFalse(if_seen)
         self.assertTrue(else_seen)
+
+    def test_map_returns_empty_if_function_returns_none(self):
+
+        def does_nothing(thing):
+            return None
+
+        optional = Optional.of("thing")
+        self.assertTrue(optional.map(does_nothing).is_empty())
+
+    def test_map_returns_empty_if_value_is_empty(self):
+
+        def does_stuff(thing):
+            return "PANTS"
+
+        optional = Optional.empty()
+        self.assertTrue(optional.map(does_stuff).is_empty())
+
+    def test_map_returns_optional_wrapped_value_with_map_result(self):
+
+        def maps_stuff(thing):
+            return thing + "PANTS"
+
+        optional = Optional.of("thing")
+        res = optional.map(maps_stuff)
+        self.assertTrue(res.is_present())
+        self.assertEqual("thingPANTS", res.get())
+
+    def test_flat_map_returns_empty_if_function_returns_empty_optional(self):
+
+        def does_nothing(thing):
+            return Optional.empty()
+
+        optional = Optional.of("thing")
+        self.assertTrue(optional.flat_map(does_nothing).is_empty())
+
+    def test_raises_if_flat_map_function_returns_non_optional(self):
+
+        def does_not_return_optional(thing):
+            return "PANTS"
+
+        optional = Optional.of("thing")
+        with self.assertRaises(FlatMapFunctionDoesNotReturnOptionalException):
+            optional.flat_map(does_not_return_optional)
+
+    def test_flat_map_returns_empty_if_value_is_empty(self):
+
+        def does_stuff(thing):
+            return Optional.of("PANTS")
+
+        optional = Optional.empty()
+        self.assertTrue(optional.flat_map(does_stuff).is_empty())
+
+    def test_flat_map_returns_unwrapped_value_with_map_result(self):
+
+        def maps_stuff(thing):
+            return Optional.of(thing + "PANTS")
+
+        optional = Optional.of("thing")
+        res = optional.flat_map(maps_stuff)
+        self.assertTrue(res.is_present())
+        self.assertEqual("thingPANTS", res.get())
 
 
 if __name__ == '__main__':

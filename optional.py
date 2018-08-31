@@ -8,6 +8,8 @@ class Optional:
 
     @staticmethod
     def of(thing):
+        if thing is None:
+            return Optional.empty()
         return Optional(thing)
 
     @staticmethod
@@ -31,6 +33,21 @@ class Optional:
 
         return self._thing
 
+    def map(self, func):
+        if self.is_empty():
+            return Optional.empty()
+        return Optional.of(func(self.get()))
+
+    def flat_map(self, func):
+        if self.is_empty():
+            return Optional.empty()
+
+        res = func(self.get())
+        if not isinstance(res, Optional):
+            raise FlatMapFunctionDoesNotReturnOptionalException("Mapping function to flat_map must return Optional.")
+
+        return res
+
     def if_present(self, consumer):
         if self._thing is not None:
             consumer(self._thing)
@@ -40,6 +57,10 @@ class Optional:
         
         def or_else(self, procedure):
             procedure()
+
+
+class FlatMapFunctionDoesNotReturnOptionalException(Exception):
+    pass
 
 
 class OptionalAccessWithoutCheckingPresenceException(Exception):
