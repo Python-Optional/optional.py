@@ -28,9 +28,6 @@ class Optional:
 
         return other.get() == self.get()
 
-    def __neq__(self, other):
-        return not self == other
-
     def is_present(self):
         self._presence_checked = True
         return self._thing is not None
