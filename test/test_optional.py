@@ -1,12 +1,12 @@
 import unittest
 
-from optional import Optional, OptionalAccessWithoutCheckingPresenceException, OptionalAccessOfEmptyException, FlatMapFunctionDoesNotReturnOptionalException
+from optional import Optional
 
 
 class TestOptional(unittest.TestCase):
 
     def test_can_instantiate(self):
-        Optional(None)
+        Optional.of(None)
 
     def test_instantiate_empty(self):
         optional = Optional.empty()
@@ -28,15 +28,10 @@ class TestOptional(unittest.TestCase):
         optional = Optional.of(None)
         self.assertFalse(optional.is_present())
 
-    def test_cannot_get_without_checking_presence(self):
-        optional = Optional.of("thing")
-        with self.assertRaises(OptionalAccessWithoutCheckingPresenceException):
-            optional.get()
-
     def test_cannot_get_from_empty_even_after_checking(self):
         optional = Optional.empty()
         self.assertTrue(optional.is_empty())
-        with self.assertRaises(OptionalAccessOfEmptyException):
+        with self.assertRaises(Optional.OptionalAccessOfEmptyException):
             optional.get()
 
     def test_can_get_when_present_and_have_checked(self):
@@ -108,7 +103,6 @@ class TestOptional(unittest.TestCase):
         self.assertEqual("thingPANTS", res.get())
 
     def test_flat_map_returns_empty_if_function_returns_empty_optional(self):
-
         def does_nothing(thing):
             return Optional.empty()
 
@@ -121,7 +115,9 @@ class TestOptional(unittest.TestCase):
             return "PANTS"
 
         optional = Optional.of("thing")
-        with self.assertRaises(FlatMapFunctionDoesNotReturnOptionalException):
+        with self.assertRaises(
+                Optional.FlatMapFunctionDoesNotReturnOptionalException
+        ):
             optional.flat_map(does_not_return_optional)
 
     def test_flat_map_returns_empty_if_value_is_empty(self):
