@@ -45,43 +45,41 @@ class TestOptional(unittest.TestCase):
         self.assertEqual("thing", optional.get())
 
     def test_will_run_consumer_if_present(self):
-        seen = False
+        scope = {'seen': False}
 
         def some_thing_consumer(thing):
-            nonlocal seen
-            seen = True
+            scope['seen'] = True
 
         optional = Optional.of("thing")
         optional.if_present(some_thing_consumer)
-        self.assertTrue(seen)
+        self.assertTrue(scope['seen'])
 
     def test_will_not_run_consumer_if_not_present(self):
-        seen = False
+        scope = {'seen': False}
 
         def some_thing_consumer(thing):
-            nonlocal seen
-            seen = True
+            scope['seen'] = True
 
         optional = Optional.empty()
         optional.if_present(some_thing_consumer)
-        self.assertFalse(seen)
+        self.assertFalse(scope['seen'])
 
     def test_will_run_or_else_from_if_present_when_not_present(self):
-        if_seen = False
-        else_seen = False
+        scope = {
+            'if_seen': False,
+            'else_seen': False
+        }
 
         def some_thing_consumer(thing):
-            nonlocal if_seen
-            if_seen = True
+            scope['if_seen'] = True
 
         def or_else_procedure():
-            nonlocal else_seen
-            else_seen = True
+            scope['else_seen'] = True
 
         optional = Optional.empty()
         optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        self.assertFalse(if_seen)
-        self.assertTrue(else_seen)
+        self.assertFalse(scope['if_seen'])
+        self.assertTrue(scope['else_seen'])
 
     def test_map_returns_empty_if_function_returns_none(self):
 
@@ -143,6 +141,21 @@ class TestOptional(unittest.TestCase):
         res = optional.flat_map(maps_stuff)
         self.assertTrue(res.is_present())
         self.assertEqual("thingPANTS", res.get())
+
+    def test_optional_not_equal_with_non_optional(self):
+        self.assertNotEqual("PANTS", Optional.of("PANTS"))
+
+    def test_empty_optionals_are_equal(self):
+        self.assertEqual(Optional.empty(), Optional.empty())
+
+    def test_empty_optional_not_equal_non_empty_optional(self):
+        self.assertNotEqual(Optional.empty(), Optional.of("thing"))
+
+    def test_non_empty_optionals_with_non_equal_content_are_not_equal(self):
+        self.assertNotEqual(Optional.of("PANTS"), Optional.of("thing"))
+
+    def test_non_empty_optionals_with_equal_content_are_equal(self):
+        self.assertEqual(Optional.of("PANTS"), Optional.of("PANTS"))
 
 
 if __name__ == '__main__':

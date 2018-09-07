@@ -159,7 +159,13 @@ So we present you with an **Optional** object as an alternative.
     If the mapping function you use with this does not return an Optional, calling `flat_map` will raise a
     `FlatMapFunctionDoesNotReturnOptionalException`.
 
-
+12. You can compare two optionals:
+    ```python
+    Optional.empty() == Optional.empty() # True
+    Optional.of("thing") == Optional.of("thing") # True
+    Optional.of("thing") == Optional.empty() # False
+    Optional.of("thing") == Optional.of("PANTS") # False
+    ```
 
 
 

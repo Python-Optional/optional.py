@@ -16,6 +16,18 @@ class Optional:
     def empty():
         return Optional(None)
 
+    def __eq__(self, other):
+        if not isinstance(other, Optional):
+            return False
+
+        if self.is_empty() and other.is_empty():
+            return True
+
+        if self.is_empty() or other.is_empty():
+            return False
+
+        return other.get() == self.get()
+
     def is_present(self):
         self._presence_checked = True
         return self._thing is not None
