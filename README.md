@@ -1,4 +1,4 @@
-# PyOptional
+# Optional.py
 An Implementation of the Optional Object for Python
 
 ## Why
