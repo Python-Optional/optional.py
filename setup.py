@@ -15,6 +15,7 @@ setup(
     author='Chad Befus',
     author_email='crbefus@gmail.com',
     url='https://github.com/cbefus/optional.py',
+    download_url = 'https://github.com/cbefus/optional.py/archive/v0.1.0.tar.gz',
     license=license,
     packages=find_packages(exclude=('test'))
 )
