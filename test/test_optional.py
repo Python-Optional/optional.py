@@ -163,3 +163,7 @@ class TestOptional(unittest.TestCase):
     def test_can_eval_the_representation_of_a_populated_optional(self):
         optional = Optional.of(23)
         self.assertEqual(optional, eval(repr(optional)))
+
+    def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
+        optional = Optional.of()
+        self.assertEqual(Optional.empty(), optional)
