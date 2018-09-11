@@ -1,7 +1,7 @@
 import unittest
 
-from optional import (
-    Optional,
+from optional import Optional
+from optional.exceptions import (
     OptionalAccessOfEmptyException,
     FlatMapFunctionDoesNotReturnOptionalException
 )
@@ -167,4 +167,3 @@ class TestOptional(unittest.TestCase):
     def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
         optional = Optional.of()
         self.assertEqual(Optional.empty(), optional)
-
