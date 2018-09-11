@@ -1,11 +1,11 @@
 from .abstract_optional import AbstractOptional
-import optional
 from .exceptions import FlatMapFunctionDoesNotReturnOptionalException
 
 
 class Something(AbstractOptional):
-    def __init__(self, value):
+    def __init__(self, value, optional):
         self.__value = value
+        self.__optional = optional
 
     def is_present(self):
         return True
@@ -21,7 +21,7 @@ class Something(AbstractOptional):
         return self
 
     def map(self, func):
-        return optional.Optional.of(func(self.get()))
+        return self.__optional.of(func(self.get()))
 
     def flat_map(self, func):
         res = func(self.get())

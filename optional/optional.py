@@ -1,12 +1,12 @@
-from .optional_factory import OptionalFactory
+from .nothing import Nothing
+from .something import Something
 
 
 class Optional(object):
-    @staticmethod
-    def of(thing=None):
-        return OptionalFactory.build(thing)
+    @classmethod
+    def of(cls, thing=None):
+        return Nothing() if thing is None else Something(thing, cls)
 
     @staticmethod
     def empty():
-        return OptionalFactory.build()
-
+        return Nothing()
