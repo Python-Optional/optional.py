@@ -1,8 +1,8 @@
-from .abstract_optional import _AbstractOptional
+from .abstract_optional import AbstractOptional
 from .exceptions import OptionalAccessOfEmptyException
 
 
-class _Nothing(_AbstractOptional):
+class Nothing(AbstractOptional):
     def is_present(self):
         return False
 
@@ -24,7 +24,7 @@ class _Nothing(_AbstractOptional):
         return self
 
     def __eq__(self, other):
-        return isinstance(other, _Nothing)
+        return isinstance(other, Nothing)
 
     def __repr__(self):
         return 'Optional.empty()'

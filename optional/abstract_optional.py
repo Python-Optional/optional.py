@@ -3,7 +3,7 @@ from abc import abstractmethod
 from .compatible_abc import CompatibleABC
 
 
-class _AbstractOptional(CompatibleABC):
+class AbstractOptional(CompatibleABC):
 
     @abstractmethod
     def is_present(self):

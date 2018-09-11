@@ -1,9 +1,9 @@
-from .abstract_optional import _AbstractOptional
+from .abstract_optional import AbstractOptional
 import optional
 from .exceptions import FlatMapFunctionDoesNotReturnOptionalException
 
 
-class _Something(_AbstractOptional):
+class Something(AbstractOptional):
     def __init__(self, value):
         self.__value = value
 
@@ -25,7 +25,7 @@ class _Something(_AbstractOptional):
 
     def flat_map(self, func):
         res = func(self.get())
-        if not isinstance(res, _AbstractOptional):
+        if not isinstance(res, AbstractOptional):
             raise FlatMapFunctionDoesNotReturnOptionalException(
                 "Mapping function to flat_map must return Optional."
             )
@@ -33,7 +33,7 @@ class _Something(_AbstractOptional):
         return res
 
     def __eq__(self, other):
-        return isinstance(other, _Something) and self.get() == other.get()
+        return isinstance(other, Something) and self.get() == other.get()
 
     def __repr__(self):
         return 'Optional.of({})'.format(self.get())
