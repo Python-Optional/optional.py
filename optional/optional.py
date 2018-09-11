@@ -5,7 +5,7 @@ from .compatible_abc import CompatibleABC
 
 class Optional(object):
     @staticmethod
-    def of(thing):
+    def of(thing=None):
         return _Nothing() if thing is None else _Something(thing)
 
     @staticmethod
