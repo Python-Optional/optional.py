@@ -9,7 +9,7 @@ setup(
     version='0.1.2',
     description='An implementation of the Optional object in Python',
     long_description=readme,
-    long_description_content_type='txt/markdown',
+    long_description_content_type='text/markdown',
     author='Chad Befus',
     author_email='crbefus@gmail.com',
     url='https://github.com/cbefus/optional.py',
