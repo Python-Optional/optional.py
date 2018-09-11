@@ -155,3 +155,7 @@ class TestOptional(unittest.TestCase):
 
     def test_non_empty_optionals_with_equal_content_are_equal(self):
         self.assertEqual(Optional.of("PANTS"), Optional.of("PANTS"))
+
+    def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
+        optional = Optional.of()
+        self.assertEqual(Optional.empty(), optional)
