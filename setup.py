@@ -6,14 +6,13 @@ with open('README.md') as f:
 
 setup(
     name='optional.py',
-    version='0.1.3',
+    version='0.1.4',
     description='An implementation of the Optional object in Python',
     long_description=readme,
     long_description_content_type='text/markdown',
     author='Chad Befus',
     author_email='crbefus@gmail.com',
     url='https://github.com/cbefus/optional.py',
-    download_url='https://github.com/cbefus/optional.py/archive/v0.1.0.tar.gz',
     license='GNU General Public License (GPL)',
     packages=find_packages(exclude=('test')),
     classifiers=[
@@ -28,5 +27,5 @@ setup(
         'Topic :: Software Development :: Libraries'
     ],
     keywords='optional datatype library',
-    python_requires='>=2.0'
+    python_requires='>=2.6'
 )
