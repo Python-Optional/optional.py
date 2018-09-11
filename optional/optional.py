@@ -67,6 +67,9 @@ class _Nothing(_AbstractOptional):
     def __eq__(self, other):
         return isinstance(other, _Nothing)
 
+    def __repr__(self):
+        return 'Optional.empty()'
+
 
 class _Something(_AbstractOptional):
     def __init__(self, value):
@@ -99,6 +102,9 @@ class _Something(_AbstractOptional):
 
     def __eq__(self, other):
         return isinstance(other, _Something) and self.get() == other.get()
+
+    def __repr__(self):
+        return 'Optional.of({})'.format(self.get())
 
 
 class OptionalAccessOfEmptyException(Exception):

@@ -155,3 +155,11 @@ class TestOptional(unittest.TestCase):
 
     def test_non_empty_optionals_with_equal_content_are_equal(self):
         self.assertEqual(Optional.of("PANTS"), Optional.of("PANTS"))
+
+    def test_can_eval_the_representation_of_an_empty_optional(self):
+        optional = Optional.empty()
+        self.assertEqual(optional, eval(repr(optional)))
+
+    def test_can_eval_the_representation_of_a_populated_optional(self):
+        optional = Optional.of(23)
+        self.assertEqual(optional, eval(repr(optional)))
