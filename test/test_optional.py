@@ -1,10 +1,8 @@
 import unittest
 
-from optional import (
-    Optional,
-    OptionalAccessOfEmptyException,
-    FlatMapFunctionDoesNotReturnOptionalException
-)
+from optional import Optional
+from optional.optional_factory import OptionalFactory
+from optional.exceptions import OptionalAccessOfEmptyException, FlatMapFunctionDoesNotReturnOptionalException
 
 
 class TestOptional(unittest.TestCase):
@@ -31,6 +29,12 @@ class TestOptional(unittest.TestCase):
     def test_is_not_present_with_empty(self):
         optional = Optional.of(None)
         self.assertFalse(optional.is_present())
+
+    def test_factory_builds_correct_without_content(self):
+        self.assertEqual(Optional.empty(), OptionalFactory.build(None))
+
+    def test_factory_builds_correct_with_content(self):
+        self.assertEqual(Optional.of("thing"), OptionalFactory.build("thing"))
 
     def test_cannot_get_from_empty_even_after_checking(self):
         optional = Optional.empty()
