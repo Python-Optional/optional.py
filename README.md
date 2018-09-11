@@ -40,6 +40,7 @@ $ pip install optional.py
     ```
 
 2. You can set it to empty:
+
     instead of: :scream_cat:
     ```python
     return None
@@ -54,6 +55,7 @@ $ pip install optional.py
     ```
     
 3. You can set it to have content:
+
     instead of: :scream_cat:
     ```python
     return "thing"
@@ -65,6 +67,7 @@ $ pip install optional.py
 
 
 4. You can check if its present:
+
     instead of: :scream_cat:
     ```python
     if thing is not None:
@@ -76,6 +79,7 @@ $ pip install optional.py
     ```
 
 5. You can check if its empty:
+
     instead of: :scream_cat:
     ```python
     if thing is None:
@@ -88,6 +92,7 @@ $ pip install optional.py
     
 
 6. You can get the value:
+
     instead of: :scream_cat:
     ```python
     print(thing)
@@ -101,6 +106,7 @@ $ pip install optional.py
     **but this is not the recommended way to use this library.**
 
 7. You **can't** get the value if its empty:
+
     instead of: :crying_cat_face:
     ```python
     if thing is None:
@@ -115,12 +121,13 @@ $ pip install optional.py
     **but this will raise an exception!**
 
 8. **Best Usage:** You can chain on presence:
+
     instead of: :scream_cat:
     ```python
     if thing is not None:
         print(thing)
     ```
-    you can do: :smile_cat:
+    you can do: :heart_eyes_cat:
     ```python
     thing = some_func_returning_an_optional()
     thing.if_present(lambda thing: print(thing))
@@ -128,6 +135,7 @@ $ pip install optional.py
     
 
 9. **Best Usage:** You can chain on non presence:
+
     instead of: :scream_cat:
     ```python
     if thing is not None:
@@ -143,6 +151,7 @@ $ pip install optional.py
     Note that the lambdas here can be swapped out for actual function names.
     
 10. **Best Usage:** You can map a function: :heart_eyes_cat:
+
     ```python
     def mapping_func(thing):
         return thing + "PANTS"
@@ -153,7 +162,7 @@ $ pip install optional.py
     **Note** that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
     if you call `map` on an empty optional it will return `Optional.empty()`.
 
-11. **Best Usage:** You can flat map a function which *already returns an Optional*: :heart_eyes_cat:
+11. **Best Usage:** You can flat map a function which **already returns an Optional**: :heart_eyes_cat:
     ```python
     def flat_mapping_func(thing):
         return Optional.of(thing + "PANTS")
@@ -189,6 +198,3 @@ or
 $ python3 -B -m unittest discover
 ```
 
-## Contributors
-@dpassen
-@cbefus
