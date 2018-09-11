@@ -4,7 +4,7 @@ An Implementation of the Optional Object for Python
 ## Why
 
 There is a difference between `None` as Empty and `None` as the result for an Error.  A common bad practice is to
-return `None` to indicate the absence of something.  This can cause issues.
+return `None` to indicate the absence of something. Doing this introduces ambiguity into you code.
 
 For example:
 ```python
@@ -19,106 +19,130 @@ something = stuff.getSomeThing()
 if something is not None:
     thing = something.getAnotherThing()
 ```
-However, if we add to our chain, you can imagine how the nesting of defensive checks gets ugly quickly. There is plenty
-of information out there on why defensive coding is not a great idea, which is beyond the scope of this README.
-
-Ultimately, these defensive checks are annoying and obfuscate our actual business logic (decreasing the readability).
-Furthermore it is an error prone process, because it is easy to forget to do the checks everywhere.
+However, if we add to our chain, you can imagine how the nesting of defensive checks adds up quickly. These defensive checks obfuscate our actual business logic, decreasing readability.
+Furthermore, defensive checking is an error prone process, because it is easy to forget to check a required condition.
 
 So we present you with an **Optional** object as an alternative.
 
+## Install
+
+**Compatible with both python 2 and 3!**
+
+```bash
+$ pip install optional.py
+```
+
 ## Usage
 
-1. You can set it to empty instead of None:
+1. You can import it using:
     ```python
     from optional import Optional
-    ...
-    return Optional.empty()
     ```
-    instead of:
+
+2. You can set it to empty:
+    instead of: :scream_cat:
     ```python
     return None
     ```
-
-2. You can set it to have content otherwise:
+    you can do: :smile_cat:
     ```python
-    from optional import Optional
-    ...
-    return Optional.of("thing")
+    return Optional.empty()
     ```
-    instead of:
+    or
+    ```python
+    return Optional.of()
+    ```
+    
+3. You can set it to have content:
+    instead of: :scream_cat:
     ```python
     return "thing"
     ```
+    you can do: :smile_cat:
+    ```python
+    return Optional.of("thing")
+    ```
 
-3. You can check if its present:
+
+4. You can check if its present:
+    instead of: :scream_cat:
+    ```python
+    if thing is not None:
+    ```
+    you can do: :smile_cat:
     ```python
     thing = some_func_returning_an_optional()
     if thing.is_present():
     ```
-    instead of:
-    ```python
-    if thing is not None:
-    ```
 
-4. You can check if its empty:
+5. You can check if its empty:
+    instead of: :scream_cat:
+    ```python
+    if thing is None:
+    ```
+    you can do: :smile_cat:
     ```python
     thing = some_func_returning_an_optional()
     if thing.is_empty():
     ```
-    instead of:
-    ```python
-    if thing is None:
-    ```
+    
 
-5. You can get the value:
+6. You can get the value:
+    instead of: :scream_cat:
+    ```python
+    print(thing)
+    ```
+    you can do: :smirk_cat: 
     ```python
     thing = some_func_returning_an_optional()
     ...
     print(thing.get())
     ```
-    instead of:
-    ```python
-    print(thing)
-    ```
+    **but this is not the recommended way to use this library.**
 
-6. You **can't** get the value if its empty:
+7. You **can't** get the value if its empty:
+    instead of: :crying_cat_face:
+    ```python
+    if thing is None:
+        print(None) # very odd
+    ```
+    you can do: :smirk_cat:
     ```python
     thing = some_func_returning_an_optional()
     if thing.is_empty():
         print(thing.get()) # **will raise an exception**
     ```
-    instead of:
-    ```python
-    if thing is None:
-        print(None) # very odd
-    ```
+    **but this will raise an exception!**
 
-7. **__Best Usage:__** You can chain on presence:
-    ```python
-    thing = some_func_returning_an_optional()
-    thing.if_present(lambda thing: print(thing))
-    ```
-    instead of:
+8. **Best Usage:** You can chain on presence:
+    instead of: :scream_cat:
     ```python
     if thing is not None:
         print(thing)
     ```
-
-8. **__Best Usage:__** You can chain on non presence:
+    you can do: :smile_cat:
     ```python
     thing = some_func_returning_an_optional()
-    thing.if_present(lambda thing: print(thing)).or_else(lambda _: print("PANTS!"))
+    thing.if_present(lambda thing: print(thing))
     ```
-    instead of:
+    
+
+9. **Best Usage:** You can chain on non presence:
+    instead of: :scream_cat:
     ```python
     if thing is not None:
         print(thing)
     else:
         print("PANTS!")
     ```
-
-9. **__Best Usage:__** You can map a function:
+    you can do: :heart_eyes_cat:
+    ```python
+    thing = some_func_returning_an_optional()
+    thing.if_present(lambda thing: print(thing)).or_else(lambda _: print("PANTS!"))
+    ```
+    Note that the lambdas here can be swapped out for actual function names.
+    
+10. **Best Usage:** You can map a function: :heart_eyes_cat:
     ```python
     def mapping_func(thing):
         return thing + "PANTS"
@@ -126,10 +150,10 @@ So we present you with an **Optional** object as an alternative.
     thing_to_map = Optional.of("thing")
     mapped_thing = thing_to_map.map(mapping_func) # returns Optional.of("thingPANTS")
     ```
-    Note that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
+    **Note** that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
     if you call `map` on an empty optional it will return `Optional.empty()`.
 
-10. **__Best Usage:__** You can flat map a function which returns an Optional.
+11. **Best Usage:** You can flat map a function which *already returns an Optional*: :heart_eyes_cat:
     ```python
     def flat_mapping_func(thing):
         return Optional.of(thing + "PANTS")
@@ -137,14 +161,34 @@ So we present you with an **Optional** object as an alternative.
     thing_to_map = Optional.of("thing")
     mapped_thing = thing_to_map.map(mapping_func) # returns Optional.of("thingPANTS")
     ```
-    Note that this does not return an Optional of an Optional.  __Use this for mapping functions which return optionals.__
+    **Note** that this does not return an Optional of an Optional.  __Use this for mapping functions which return optionals.__
     If the mapping function you use with this does not return an Optional, calling `flat_map` will raise a
     `FlatMapFunctionDoesNotReturnOptionalException`.
 
-11. You can compare two optionals:
+12. You can compare two optionals: :smile_cat:
     ```python
     Optional.empty() == Optional.empty() # True
     Optional.of("thing") == Optional.of("thing") # True
     Optional.of("thing") == Optional.empty() # False
     Optional.of("thing") == Optional.of("PANTS") # False
     ```
+
+
+## Tests
+
+There is complete test coverage and they pass in both python 2 and 3.
+
+You can run the tests using:
+```bash
+$ python2 -B -m unittest discover
+```
+
+or
+
+```bash
+$ python3 -B -m unittest discover
+```
+
+## Contributors
+@dpassen
+@cbefus
