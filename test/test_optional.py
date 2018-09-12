@@ -80,6 +80,23 @@ class TestOptional(unittest.TestCase):
         self.assertFalse(scope['if_seen'])
         self.assertTrue(scope['else_seen'])
 
+    def test_will_not_run_or_else_from_if_present_when_not_empty(self):
+        scope = {
+            'if_seen': False,
+            'else_seen': False
+        }
+
+        def some_thing_consumer(thing):
+            scope['if_seen'] = True
+
+        def or_else_procedure():
+            scope['else_seen'] = True
+
+        optional = Optional.of(23)
+        optional.if_present(some_thing_consumer).or_else(or_else_procedure)
+        self.assertTrue(scope['if_seen'])
+        self.assertFalse(scope['else_seen'])
+
     def test_map_returns_empty_if_function_returns_none(self):
 
         def does_nothing(thing):
