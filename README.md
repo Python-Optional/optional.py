@@ -2,6 +2,7 @@
 An Implementation of the Optional Object for Python
 
 [![Build Status](https://img.shields.io/pypi/v/optional.py.svg)](https://pypi.org/project/optional.py/)
+[![Build Status](https://travis-ci.com/cbefus/optional.py.svg?branch=master)](https://travis-ci.com/cbefus/optional.py)
 [![License](https://img.shields.io/pypi/l/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Contributors](https://img.shields.io/github/contributors/cbefus/optional.py.svg)](https://pypi.org/project/optional.py/)
