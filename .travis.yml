@@ -12,4 +12,4 @@ python:
   - "3.7"
 
 script:
-  - "python -B -m unititest discover"
+  - "python -B -m unittest discover"
