@@ -27,5 +27,5 @@ setup(
         'Topic :: Software Development :: Libraries'
     ],
     keywords='optional datatype library',
-    python_requires='>=2.6'
+    python_requires='>=2.7'
 )
