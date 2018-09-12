@@ -1,11 +1,12 @@
 # Optional.py
-An Implementation of the Optional Object for Python
-
 [![Build Status](https://img.shields.io/pypi/v/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Build Status](https://travis-ci.com/cbefus/optional.py.svg?branch=master)](https://travis-ci.com/cbefus/optional.py)
+[![Coverage Status](https://coveralls.io/repos/github/cbefus/optional.py/badge.svg?branch=master)](https://coveralls.io/github/cbefus/optional.py?branch=master)
 [![License](https://img.shields.io/pypi/l/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Contributors](https://img.shields.io/github/contributors/cbefus/optional.py.svg)](https://pypi.org/project/optional.py/)
+
+An Implementation of the Optional Object for Python
 
 ## Why
 
@@ -191,6 +192,7 @@ $ pip install optional.py
 
 ## Tests
 
+###Running Unit Tests
 There is complete test coverage and they pass in both python 2 and 3.
 
 You can run the tests using:
@@ -203,3 +205,15 @@ or
 ```bash
 $ python3 -B -m unittest discover
 ```
+
+###Test Coverage
+if you install the requirements in `test_requirements.txt` using:
+```bash
+$ pip install -r test_requirements.txt
+```
+You can check the code coverage using:
+```bash
+$ coverage run -m --branch unittest discover
+$ coverage report
+```
+

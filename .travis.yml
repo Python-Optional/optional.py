@@ -11,6 +11,9 @@ matrix:
     - python: 3.7
       dist: xenial
       sudo: true
-install: true
+before_script:
+  - pip install -r test_requirements.txt --use-mirrors
 script:
   - "python -B -m unittest discover"
+after_success:
+  - coveralls
