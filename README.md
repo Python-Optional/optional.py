@@ -1,6 +1,11 @@
 # Optional.py
 An Implementation of the Optional Object for Python
 
+[![Build Status](https://img.shields.io/pypi/v/optional.py.svg)](https://pypi.org/project/optional.py/)
+[![License](https://img.shields.io/pypi/l/optional.py.svg)](https://pypi.org/project/optional.py/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/optional.py.svg)](https://pypi.org/project/optional.py/)
+[![Contributors](https://img.shields.io/github/contributors/cbefus/optional.py.svg)](https://pypi.org/project/optional.py/)
+
 ## Why
 
 There is a difference between `None` as Empty and `None` as the result for an Error.  A common bad practice is to
@@ -53,7 +58,7 @@ $ pip install optional.py
     ```python
     return Optional.of()
     ```
-    
+
 3. You can set it to have content:
 
     instead of: :scream_cat:
@@ -89,7 +94,7 @@ $ pip install optional.py
     thing = some_func_returning_an_optional()
     if thing.is_empty():
     ```
-    
+
 
 6. You can get the value:
 
@@ -97,7 +102,7 @@ $ pip install optional.py
     ```python
     print(thing)
     ```
-    you can do: :smirk_cat: 
+    you can do: :smirk_cat:
     ```python
     thing = some_func_returning_an_optional()
     ...
@@ -132,7 +137,7 @@ $ pip install optional.py
     thing = some_func_returning_an_optional()
     thing.if_present(lambda thing: print(thing))
     ```
-    
+
 
 9. **Best Usage:** You can chain on non presence:
 
@@ -149,7 +154,7 @@ $ pip install optional.py
     thing.if_present(lambda thing: print(thing)).or_else(lambda _: print("PANTS!"))
     ```
     Note that the lambdas here can be swapped out for actual function names.
-    
+
 10. **Best Usage:** You can map a function: :heart_eyes_cat:
 
     ```python
@@ -197,4 +202,3 @@ or
 ```bash
 $ python3 -B -m unittest discover
 ```
-
