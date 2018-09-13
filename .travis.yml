@@ -13,6 +13,6 @@ matrix:
 before_script:
   - pip install -r test_requirements.txt
 script:
-  - "python -B -m unittest discover"
+  - "coverage -B -m unittest discover"
 after_success:
   - coveralls
