@@ -1,7 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
   - "3.3"
   - "3.4"
   - "3.5"
@@ -12,10 +11,8 @@ matrix:
       dist: xenial
       sudo: true
 before_script:
-  - echo $TRAVIS_PYTHON_VERSION;
-  - echo [[ $TRAVIS_PYTHON_VERSION != 3.2 ]];
-  - if [[ $TRAVIS_PYTHON_VERSION != 3.2 ]]; then pip install -r test_requirements.txt; fi
+  - pip install -r test_requirements.txt
 script:
   - "python -B -m unittest discover"
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION != 3.2 ]]; then coveralls; fi
+  - coveralls
