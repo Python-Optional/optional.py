@@ -12,7 +12,7 @@ matrix:
       dist: xenial
       sudo: true
 before_script:
-  - pip install -r test_requirements.txt --use-mirrors
+  - pip install -r test_requirements.txt
 script:
   - "python -B -m unittest discover"
 after_success:
