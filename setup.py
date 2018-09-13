@@ -6,19 +6,19 @@ with open('README.md') as f:
 
 setup(
     name='optional.py',
-    version='0.1.4',
+    version='0.2.0',
     description='An implementation of the Optional object in Python',
     long_description=readme,
     long_description_content_type='text/markdown',
     author='Chad Befus',
     author_email='crbefus@gmail.com',
     url='https://github.com/cbefus/optional.py',
-    license='GNU General Public License (GPL)',
+    license='MIT License',
     packages=find_packages(exclude=('test')),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
