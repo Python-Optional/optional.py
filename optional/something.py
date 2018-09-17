@@ -4,6 +4,9 @@ from .exceptions import FlatMapFunctionDoesNotReturnOptionalException
 
 class Something(AbstractOptional):
     def __init__(self, value, optional):
+        if value is None:
+            raise ValueError('Invalid value for Something: None')
+
         self.__value = value
         self.__optional = optional
 

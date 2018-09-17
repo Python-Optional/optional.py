@@ -1,4 +1,4 @@
-import unittest
+from unittest import TestCase
 
 from optional import Optional
 from optional.exceptions import (
@@ -7,7 +7,7 @@ from optional.exceptions import (
 )
 
 
-class TestOptional(unittest.TestCase):
+class TestOptional(TestCase):
 
     def test_can_instantiate(self):
         Optional.of(None)
