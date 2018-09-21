@@ -23,6 +23,9 @@ class Something(AbstractOptional):
     def or_else(self, procedure):
         return self
 
+    def or_else_raise(self, raiseable):
+        return self
+
     def map(self, func):
         return self.__optional.of(func(self.get()))
 

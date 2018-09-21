@@ -97,6 +97,27 @@ class TestOptional(TestCase):
         self.assertTrue(scope['if_seen'])
         self.assertFalse(scope['else_seen'])
 
+    def test_will_raise_on_or_else_raise_from_if_present_when_not_present(self):
+        class TestException(Exception):
+            pass
+
+        optional = Optional.empty()
+        with self.assertRaises(TestException):
+            optional.if_present(lambda x: x).or_else_raise(TestException("Something"))
+
+    def test_wont_raise_on_or_else_raise_from_if_present_when_present(self):
+        class ShouldNotHappenException(Exception):
+            pass
+        optional = Optional.of("thing")
+        scope = {'seen': False}
+
+        def some_thing_consumer(thing):
+            scope['seen'] = True
+
+        optional.if_present(some_thing_consumer).or_else_raise(ShouldNotHappenException)
+
+        self.assertTrue(scope['seen'])
+
     def test_map_returns_empty_if_function_returns_none(self):
 
         def does_nothing(thing):

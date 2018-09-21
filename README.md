@@ -158,6 +158,19 @@ $ pip install optional.py
     ```
     Note that the lambdas here can be swapped out for actual function names.
 
+10. **Best Usage:** You can raise on non presence:
+
+    instead of: :scream_cat:
+    ```python
+    if thing is None:
+        raise SomeException("Boom!")
+    ```
+    you can do: :heart_eyes_cat:
+    ```python
+    thing = some_func_returning_an_optional()
+    thing.if_present(lambda thing: print(thing)).or_else_raise(SomeException("Boom!"))
+    ```
+
 10. **Best Usage:** You can map a function: :heart_eyes_cat:
 
     ```python
