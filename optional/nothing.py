@@ -17,6 +17,9 @@ class Nothing(AbstractOptional):
     def or_else(self, procedure):
         return procedure()
 
+    def or_else_raise(self, raiseable):
+        raise raiseable
+
     def map(self, func):
         return self
 

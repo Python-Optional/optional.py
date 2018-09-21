@@ -25,6 +25,10 @@ class AbstractOptional(CompatibleABC):
         pass
 
     @abstractmethod
+    def or_else_raise(self, raiseable):
+        pass
+
+    @abstractmethod
     def map(self, func):
         pass
 
