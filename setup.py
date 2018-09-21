@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setup(
     name='optional.py',
-    version='0.2.1',
+    version='0.2.2',
     description='An implementation of the Optional object in Python',
     long_description=readme,
     long_description_content_type='text/markdown',
