@@ -108,6 +108,7 @@ class TestOptional(TestCase):
     def test_wont_raise_on_or_else_raise_from_if_present_when_present(self):
         class ShouldNotHappenException(Exception):
             pass
+
         optional = Optional.of("thing")
         scope = {'seen': False}
 
