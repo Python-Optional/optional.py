@@ -1,4 +1,4 @@
-from unittest import TestCase
+import pytest
 
 from optional import Optional
 from optional.exceptions import (
@@ -6,42 +6,41 @@ from optional.exceptions import (
     FlatMapFunctionDoesNotReturnOptionalException
 )
 
-
-class TestOptional(TestCase):
+class TestOptional(object):
 
     def test_can_instantiate(self):
         Optional.of(None)
 
     def test_instantiate_empty(self):
         optional = Optional.empty()
-        self.assertTrue(optional.is_empty())
+        assert optional.is_empty()
 
     def test_instantiate_with_content(self):
         optional = Optional.of("something")
-        self.assertFalse(optional.is_empty())
+        assert not optional.is_empty()
 
     def test_instantiate_with_none(self):
         optional = Optional.of(None)
-        self.assertTrue(optional.is_empty())
+        assert optional.is_empty()
 
     def test_is_present_with_content(self):
         optional = Optional.of("thing")
-        self.assertTrue(optional.is_present())
+        assert optional.is_present()
 
     def test_is_not_present_with_empty(self):
         optional = Optional.of(None)
-        self.assertFalse(optional.is_present())
+        assert not optional.is_present()
 
     def test_cannot_get_from_empty_even_after_checking(self):
         optional = Optional.empty()
-        self.assertTrue(optional.is_empty())
-        with self.assertRaises(OptionalAccessOfEmptyException):
+        assert optional.is_empty()
+        with pytest.raises(OptionalAccessOfEmptyException):
             optional.get()
 
     def test_can_get_when_present_and_have_checked(self):
         optional = Optional.of("thing")
-        self.assertTrue(optional.is_present())
-        self.assertEqual("thing", optional.get())
+        assert optional.is_present()
+        assert optional.get() == "thing"
 
     def test_will_run_consumer_if_present(self):
         scope = {'seen': False}
@@ -51,7 +50,7 @@ class TestOptional(TestCase):
 
         optional = Optional.of("thing")
         optional.if_present(some_thing_consumer)
-        self.assertTrue(scope['seen'])
+        assert scope['seen']
 
     def test_will_not_run_consumer_if_not_present(self):
         scope = {'seen': False}
@@ -61,7 +60,7 @@ class TestOptional(TestCase):
 
         optional = Optional.empty()
         optional.if_present(some_thing_consumer)
-        self.assertFalse(scope['seen'])
+        assert not scope['seen']
 
     def test_will_run_or_else_from_if_present_when_not_present(self):
         scope = {
@@ -77,8 +76,8 @@ class TestOptional(TestCase):
 
         optional = Optional.empty()
         optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        self.assertFalse(scope['if_seen'])
-        self.assertTrue(scope['else_seen'])
+        assert not scope['if_seen']
+        assert scope['else_seen']
 
     def test_will_not_run_or_else_from_if_present_when_not_empty(self):
         scope = {
@@ -94,15 +93,15 @@ class TestOptional(TestCase):
 
         optional = Optional.of(23)
         optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        self.assertTrue(scope['if_seen'])
-        self.assertFalse(scope['else_seen'])
+        assert scope['if_seen']
+        assert not scope['else_seen']
 
     def test_will_raise_on_or_else_raise_from_if_present_when_not_present(self):
         class TestException(Exception):
             pass
 
         optional = Optional.empty()
-        with self.assertRaises(TestException):
+        with pytest.raises(TestException):
             optional.if_present(lambda x: x).or_else_raise(TestException("Something"))
 
     def test_wont_raise_on_or_else_raise_from_if_present_when_present(self):
@@ -116,8 +115,7 @@ class TestOptional(TestCase):
             scope['seen'] = True
 
         optional.if_present(some_thing_consumer).or_else_raise(ShouldNotHappenException)
-
-        self.assertTrue(scope['seen'])
+        assert scope['seen']
 
     def test_map_returns_empty_if_function_returns_none(self):
 
@@ -125,7 +123,7 @@ class TestOptional(TestCase):
             return None
 
         optional = Optional.of("thing")
-        self.assertTrue(optional.map(does_nothing).is_empty())
+        assert optional.map(does_nothing).is_empty()
 
     def test_map_returns_empty_if_value_is_empty(self):
 
@@ -133,7 +131,7 @@ class TestOptional(TestCase):
             return "PANTS"
 
         optional = Optional.empty()
-        self.assertTrue(optional.map(does_stuff).is_empty())
+        assert optional.map(does_stuff).is_empty()
 
     def test_map_returns_optional_wrapped_value_with_map_result(self):
 
@@ -142,8 +140,8 @@ class TestOptional(TestCase):
 
         optional = Optional.of("thing")
         res = optional.map(maps_stuff)
-        self.assertTrue(res.is_present())
-        self.assertEqual("thingPANTS", res.get())
+        assert res.is_present()
+        assert res.get() == "thingPANTS"
 
     def test_flat_map_returns_empty_if_function_returns_empty_optional(self):
 
@@ -151,7 +149,7 @@ class TestOptional(TestCase):
             return Optional.empty()
 
         optional = Optional.of("thing")
-        self.assertTrue(optional.flat_map(does_nothing).is_empty())
+        assert optional.flat_map(does_nothing).is_empty()
 
     def test_raises_if_flat_map_function_returns_non_optional(self):
 
@@ -159,7 +157,7 @@ class TestOptional(TestCase):
             return "PANTS"
 
         optional = Optional.of("thing")
-        with self.assertRaises(FlatMapFunctionDoesNotReturnOptionalException):
+        with pytest.raises(FlatMapFunctionDoesNotReturnOptionalException):
             optional.flat_map(does_not_return_optional)
 
     def test_flat_map_returns_empty_if_value_is_empty(self):
@@ -168,7 +166,7 @@ class TestOptional(TestCase):
             return Optional.of("PANTS")
 
         optional = Optional.empty()
-        self.assertTrue(optional.flat_map(does_stuff).is_empty())
+        assert optional.flat_map(does_stuff).is_empty()
 
     def test_flat_map_returns_unwrapped_value_with_map_result(self):
 
@@ -177,32 +175,31 @@ class TestOptional(TestCase):
 
         optional = Optional.of("thing")
         res = optional.flat_map(maps_stuff)
-        self.assertTrue(res.is_present())
-        self.assertEqual("thingPANTS", res.get())
+        assert res.is_present()
+        assert res.get() == "thingPANTS"
 
     def test_optional_not_equal_with_non_optional(self):
-        self.assertNotEqual("PANTS", Optional.of("PANTS"))
+        assert "PANTS" != Optional.of("PANTS")
 
     def test_empty_optionals_are_equal(self):
-        self.assertEqual(Optional.empty(), Optional.empty())
+        assert Optional.empty() == Optional.empty()
 
     def test_empty_optional_not_equal_non_empty_optional(self):
-        self.assertNotEqual(Optional.empty(), Optional.of("thing"))
+        assert Optional.empty() != Optional.of("thing")
 
     def test_non_empty_optionals_with_non_equal_content_are_not_equal(self):
-        self.assertNotEqual(Optional.of("PANTS"), Optional.of("thing"))
+        assert Optional.of("PANTS") != Optional.of("thing")
 
     def test_non_empty_optionals_with_equal_content_are_equal(self):
-        self.assertEqual(Optional.of("PANTS"), Optional.of("PANTS"))
+        assert Optional.of("PANTS") == Optional.of("PANTS")
 
     def test_can_eval_the_representation_of_an_empty_optional(self):
         optional = Optional.empty()
-        self.assertEqual(optional, eval(repr(optional)))
+        assert eval(repr(optional)) == optional
 
     def test_can_eval_the_representation_of_a_populated_optional(self):
         optional = Optional.of(23)
-        self.assertEqual(optional, eval(repr(optional)))
+        assert eval(repr(optional)) == optional
 
     def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
-        optional = Optional.of()
-        self.assertEqual(Optional.empty(), optional)
+        assert Optional.of() == Optional.empty()
