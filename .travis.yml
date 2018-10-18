@@ -13,6 +13,6 @@ matrix:
 before_script:
   - pip install -r test_requirements.txt
 script:
-  - "coverage run -m unittest discover"
+  - "pytest --cov=optional test"
 after_success:
   - coveralls

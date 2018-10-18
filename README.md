@@ -208,27 +208,22 @@ $ pip install optional.py
 
 There is complete test coverage and they pass in both python 2 and 3.
 
-#### Running Unit Tests
+### Running Unit Tests
 
-You can run the tests using:
-```bash
-$ python2 -B -m unittest discover
-```
-
-or
-
-```bash
-$ python3 -B -m unittest discover
-```
-
-#### Test Coverage
-if you install the requirements in `test_requirements.txt` using:
+First, install the requirements in `test_requirements.txt` using:
 ```bash
 $ pip install -r test_requirements.txt
 ```
+
+You can run the tests using:
+```bash
+$ pytest
+```
+
+#### Test Coverage
 You can check the code coverage using:
 ```bash
-$ coverage run -m --branch unittest discover
+$ pytest --cov=optional test/
 $ coverage report
 ```
 
