@@ -13,7 +13,7 @@ class Something(AbstractOptional):
     def is_present(self):
         return True
 
-    def get(self):
+    def get(self, default_value=None):
         return self.__value
 
     def if_present(self, consumer):

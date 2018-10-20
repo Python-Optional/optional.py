@@ -203,3 +203,16 @@ class TestOptional(object):
 
     def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
         assert Optional.of() == Optional.empty()
+
+    def test_get_on_a_populated_optional_ignores_default_value(self):
+        optional = Optional.of("thing")
+        assert optional.get("pants") == "thing"
+
+    def test_get_on_an_empty_optional_returns_default_value(self):
+        optional = Optional.empty()
+        assert optional.get("pants") == "pants"
+
+    def test_get_using_default_on_an_empty_optional_may_not_use_none(self):
+        optional = Optional.empty()
+        with pytest.raises(OptionalAccessOfEmptyException):
+            optional.get(None)

@@ -6,10 +6,13 @@ class Nothing(AbstractOptional):
     def is_present(self):
         return False
 
-    def get(self):
-        raise OptionalAccessOfEmptyException(
-            "You cannot call get on an empty optional"
-        )
+    def get(self, default_value=None):
+        if default_value is not None:
+            return default_value
+        else:
+            raise OptionalAccessOfEmptyException(
+                "You cannot call get on an empty optional"
+            )
 
     def if_present(self, consumer):
         return self
