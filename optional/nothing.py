@@ -11,6 +11,9 @@ class Nothing(AbstractOptional):
             "You cannot call get on an empty optional"
         )
 
+    def get_or_default(self, default_value):
+        return default_value
+
     def if_present(self, consumer):
         return self
 

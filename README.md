@@ -128,7 +128,28 @@ $ pip install optional.py
     ```
     **but this will raise an exception!**
 
-8. **Best Usage:** You can chain on presence:
+8. You can get_or_default which takes a default value:
+
+    instead of: :crying_cat_face:
+    ```python
+    thing = some_func_may_return_none()
+    if thing is None:
+         thing = '23'
+    ```
+    or: :scream_cat:
+    ```python
+    thing = Optional.of(some_func_may_return_none())
+    if thing.is_empty():
+        thing = '23'
+    else:
+        thing = thing.get()
+    ```
+    you can do: :smirk_cat:
+    ```python
+    thing = Optional.of(some_func_may_return_none()).get_or_default('23')
+    ```
+
+9. **Best Usage:** You can chain on presence:
 
     instead of: :scream_cat:
     ```python
@@ -142,7 +163,7 @@ $ pip install optional.py
     ```
 
 
-9. **Best Usage:** You can chain on non presence:
+10. **Best Usage:** You can chain on non presence:
 
     instead of: :scream_cat:
     ```python
@@ -171,7 +192,7 @@ $ pip install optional.py
     thing.if_present(lambda thing: print(thing)).or_else_raise(SomeException("Boom!"))
     ```
 
-10. **Best Usage:** You can map a function: :heart_eyes_cat:
+11. **Best Usage:** You can map a function: :heart_eyes_cat:
 
     ```python
     def mapping_func(thing):
@@ -183,7 +204,7 @@ $ pip install optional.py
     **Note** that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
     if you call `map` on an empty optional it will return `Optional.empty()`.
 
-11. **Best Usage:** You can flat map a function which **already returns an Optional**: :heart_eyes_cat:
+12. **Best Usage:** You can flat map a function which **already returns an Optional**: :heart_eyes_cat:
     ```python
     def flat_mapping_func(thing):
         return Optional.of(thing + "PANTS")
@@ -195,7 +216,7 @@ $ pip install optional.py
     If the mapping function you use with this does not return an Optional, calling `flat_map` will raise a
     `FlatMapFunctionDoesNotReturnOptionalException`.
 
-12. You can compare two optionals: :smile_cat:
+13. You can compare two optionals: :smile_cat:
     ```python
     Optional.empty() == Optional.empty() # True
     Optional.of("thing") == Optional.of("thing") # True
@@ -226,4 +247,3 @@ You can check the code coverage using:
 $ pytest --cov=optional test/
 $ coverage report
 ```
-
