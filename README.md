@@ -149,7 +149,24 @@ $ pip install optional.py
     thing = Optional.of(some_func_may_return_none()).get_or_default('23')
     ```
 
-9. **Best Usage:** You can chain on presence:
+9. You can get_or_raise to raise any exception on abscence:
+
+    instead of: :scream_cat:
+    ```python
+    try:
+        thing = some_func_returning_an_optional()
+        return thing.get()
+    except OptionalAccessOfEmptyException:
+        raise MyCustomException()
+    ```
+    you can do: :heart_eyes_cat:
+    ```python
+    return some_func_returning_an_optional().get_or_raise(
+        MyCustomException()
+    )
+    ```
+
+10. **Best Usage:** You can chain on presence:
 
     instead of: :scream_cat:
     ```python
@@ -163,7 +180,7 @@ $ pip install optional.py
     ```
 
 
-10. **Best Usage:** You can chain on non presence:
+11. **Best Usage:** You can chain on non presence:
 
     instead of: :scream_cat:
     ```python
@@ -179,7 +196,7 @@ $ pip install optional.py
     ```
     Note that the lambdas here can be swapped out for actual function names.
 
-10. **Best Usage:** You can raise on non presence:
+12. **Best Usage:** You can raise on non presence:
 
     instead of: :scream_cat:
     ```python
@@ -192,7 +209,7 @@ $ pip install optional.py
     thing.if_present(lambda thing: print(thing)).or_else_raise(SomeException("Boom!"))
     ```
 
-11. **Best Usage:** You can map a function: :heart_eyes_cat:
+13. **Best Usage:** You can map a function: :heart_eyes_cat:
 
     ```python
     def mapping_func(thing):
@@ -204,7 +221,7 @@ $ pip install optional.py
     **Note** that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
     if you call `map` on an empty optional it will return `Optional.empty()`.
 
-12. **Best Usage:** You can flat map a function which **already returns an Optional**: :heart_eyes_cat:
+14. **Best Usage:** You can flat map a function which **already returns an Optional**: :heart_eyes_cat:
     ```python
     def flat_mapping_func(thing):
         return Optional.of(thing + "PANTS")
@@ -216,7 +233,7 @@ $ pip install optional.py
     If the mapping function you use with this does not return an Optional, calling `flat_map` will raise a
     `FlatMapFunctionDoesNotReturnOptionalException`.
 
-13. You can compare two optionals: :smile_cat:
+15. You can compare two optionals: :smile_cat:
     ```python
     Optional.empty() == Optional.empty() # True
     Optional.of("thing") == Optional.of("thing") # True

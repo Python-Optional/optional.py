@@ -14,6 +14,9 @@ class Nothing(AbstractOptional):
     def get_or_default(self, default_value):
         return default_value
 
+    def get_or_raise(self, exception):
+        raise exception
+
     def if_present(self, consumer):
         return self
 

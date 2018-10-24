@@ -211,3 +211,20 @@ class TestOptional(object):
     def test_get_or_default_on_an_empty_optional_returns_default_value(self):
         optional = Optional.empty()
         assert optional.get_or_default("pants") == "pants"
+
+    def test_get_or_raise_on_a_populated_optional_returns_value(self):
+        optional = Optional.of("thing")
+
+        class RandomDomainException(Exception):
+            pass
+
+        assert optional.get_or_raise(RandomDomainException()) == optional.get()
+
+    def test_get_or_raise_on_an_empty_optional_throws_wrapped_exception(self):
+        optional = Optional.empty()
+
+        class RandomDomainException(Exception):
+            pass
+
+        with pytest.raises(RandomDomainException):
+            optional.get_or_raise(RandomDomainException())
