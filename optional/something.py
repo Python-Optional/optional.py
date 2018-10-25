@@ -16,6 +16,9 @@ class Something(AbstractOptional):
     def get(self):
         return self.__value
 
+    def get_or_default(self, default_value):
+        return self.get()
+
     def if_present(self, consumer):
         consumer(self.get())
         return self
