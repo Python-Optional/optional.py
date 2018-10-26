@@ -21,6 +21,10 @@ class AbstractOptional(CompatibleABC):
         pass
 
     @abstractmethod
+    def get_or_raise(self, exception):
+        pass
+
+    @abstractmethod
     def if_present(self, consumer):
         pass
 
