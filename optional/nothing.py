@@ -3,6 +3,10 @@ from .exceptions import OptionalAccessOfEmptyException
 
 
 class Nothing(AbstractOptional):
+
+    def __init__(self, optional):
+        self.__optional = optional
+
     def is_present(self):
         return False
 
@@ -14,14 +18,14 @@ class Nothing(AbstractOptional):
     def get_or_default(self, default_value):
         return default_value
 
-    def get_or_raise(self, exception):
-        raise exception
+    def get_or_raise(self, raiseable):
+        raise raiseable
 
     def if_present(self, consumer):
         return self
 
-    def or_else(self, procedure):
-        return procedure()
+    def or_else(self, supplier):
+        return self.__optional.of(supplier())
 
     def or_else_raise(self, raiseable):
         raise raiseable

@@ -196,6 +196,24 @@ $ pip install optional.py
     ```
     Note that the lambdas here can be swapped out for actual function names.
 
+12. **Best Usage:** You can run a supplier on non presence:
+
+    instead of: :scream_cat:
+    ```python
+        thing = some_func_returning_an_empty_optional()
+        if thing.is_empty():
+            thing = Optional.of("pants")
+        print(thing.get()) # Prints "pants"   
+
+    ```
+    you can do: :heart_eyes_cat:
+    ```python
+        def some_supplier():
+            return "pants"
+        thing = some_func_returning_an_empty_optional().or_else(some_supplier)
+        print(thing.get()) # Prints "pants"
+    ```
+
 12. **Best Usage:** You can raise on non presence:
 
     instead of: :scream_cat:
