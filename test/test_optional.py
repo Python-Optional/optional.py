@@ -92,9 +92,19 @@ class TestOptional(object):
             scope['else_seen'] = True
 
         optional = Optional.of(23)
-        optional.if_present(some_thing_consumer).or_else(or_else_procedure)
+        value = optional.if_present(some_thing_consumer).or_else(or_else_procedure)
         assert scope['if_seen']
         assert not scope['else_seen']
+        assert value.get() == 23
+
+    def test_will_return_optional_of_return_val_when_not_present(self):
+
+        def or_else_supplier():
+            return "pants"
+
+        optional = Optional.empty()
+        assert optional.or_else(or_else_supplier) == Optional.of("pants")
+
 
     def test_will_raise_on_or_else_raise_from_if_present_when_not_present(self):
         class TestException(Exception):
