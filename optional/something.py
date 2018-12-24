@@ -48,4 +48,4 @@ class Something(AbstractOptional):
         return isinstance(other, Something) and self.get() == other.get()
 
     def __repr__(self):
-        return 'Optional.of({})'.format(self.get())
+        return 'Optional.of({!r})'.format(self.get())
