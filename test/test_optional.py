@@ -208,7 +208,7 @@ class TestOptional(object):
         assert eval(repr(optional)) == optional
 
     def test_can_eval_the_representation_of_a_populated_optional(self):
-        optional = Optional.of(23)
+        optional = Optional.of('23')
         assert eval(repr(optional)) == optional
 
     def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
