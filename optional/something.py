@@ -10,8 +10,8 @@ class Something(AbstractOptional):
         self.__value = value
         self.__optional = optional
 
-    def is_present(self):
-        return True
+    def is_empty(self):
+        return False
 
     def get(self):
         return self.__value

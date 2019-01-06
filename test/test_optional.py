@@ -238,3 +238,12 @@ class TestOptional(object):
 
         with pytest.raises(RandomDomainException):
             optional.get_or_raise(RandomDomainException())
+
+    def test_populated_optionals_are_truthy(self):
+        assert Optional.of('foo')
+
+    def test_populated_optionals_are_truthy_even_if_their_value_is_falsy(self):
+        assert Optional.of(False)
+
+    def test_empty_optionals_are_falsy(self):
+        assert not Optional.empty()

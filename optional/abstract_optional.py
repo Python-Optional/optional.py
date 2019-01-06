@@ -6,11 +6,8 @@ from .compatible_abc import CompatibleABC
 class AbstractOptional(CompatibleABC):
 
     @abstractmethod
-    def is_present(self):
-        pass
-
     def is_empty(self):
-        return not self.is_present()
+        pass
 
     @abstractmethod
     def get(self):
@@ -43,3 +40,8 @@ class AbstractOptional(CompatibleABC):
     @abstractmethod
     def flat_map(self, func):
         pass
+
+    def is_present(self):
+        return not self.is_empty()
+
+    __bool__ = __nonzero__ = is_present

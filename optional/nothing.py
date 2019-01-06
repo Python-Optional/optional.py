@@ -7,8 +7,8 @@ class Nothing(AbstractOptional):
     def __init__(self, optional):
         self.__optional = optional
 
-    def is_present(self):
-        return False
+    def is_empty(self):
+        return True
 
     def get(self):
         raise OptionalAccessOfEmptyException(
