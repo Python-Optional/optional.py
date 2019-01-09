@@ -85,7 +85,11 @@ $ pip install optional.py
     thing = some_func_returning_an_optional()
     if thing.is_present():
     ```
-
+    or, alternatively: :smirk_cat:
+    ```python
+    thing = some_func_returning_an_optional()
+    if thing:
+    ```
 5. You can check if its empty:
 
     instead of: :scream_cat:
@@ -96,6 +100,11 @@ $ pip install optional.py
     ```python
     thing = some_func_returning_an_optional()
     if thing.is_empty():
+    ```
+    or, alternatively: :smirk_cat:
+    ```python
+    thing = some_func_returning_an_optional()
+    if not thing:
     ```
 
 
@@ -203,7 +212,7 @@ $ pip install optional.py
         thing = some_func_returning_an_empty_optional()
         if thing.is_empty():
             thing = Optional.of("pants")
-        print(thing.get()) # Prints "pants"   
+        print(thing.get()) # Prints "pants"
 
     ```
     you can do: :heart_eyes_cat:
