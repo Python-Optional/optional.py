@@ -6,6 +6,7 @@ from optional.exceptions import (
     FlatMapFunctionDoesNotReturnOptionalException
 )
 
+
 class TestOptional(object):
 
     def test_can_instantiate(self):
