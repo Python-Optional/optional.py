@@ -3,8 +3,9 @@ import pytest
 from optional import Optional
 from optional.exceptions import (
     OptionalAccessOfEmptyException,
-    FlatMapFunctionDoesNotReturnOptionalException
+    FlatMapFunctionDoesNotReturnOptionalException,
 )
+
 
 class TestOptional(object):
 
@@ -65,7 +66,7 @@ class TestOptional(object):
     def test_will_run_or_else_from_if_present_when_not_present(self):
         scope = {
             'if_seen': False,
-            'else_seen': False
+            'else_seen': False,
         }
 
         def some_thing_consumer(thing):
@@ -82,7 +83,7 @@ class TestOptional(object):
     def test_will_not_run_or_else_from_if_present_when_not_empty(self):
         scope = {
             'if_seen': False,
-            'else_seen': False
+            'else_seen': False,
         }
 
         def some_thing_consumer(thing):

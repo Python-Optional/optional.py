@@ -1,5 +1,3 @@
-
-
 class OptionalAccessOfEmptyException(Exception):
     pass
 
