@@ -6,6 +6,7 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Contributors](https://img.shields.io/github/contributors/cbefus/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/open-source)
+[![Downloads](https://pepy.tech/badge/optional-py)](https://pepy.tech/project/optional-py)
 
 An Implementation of the Optional Object for Python
 
