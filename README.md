@@ -276,19 +276,20 @@ There is complete test coverage and they pass in both python 2 and 3.
 
 ### Running Unit Tests
 
-First, install the requirements in `test_requirements.txt` using:
+First, install `poetry` using the instructions located [here](https://python-poetry.org/docs/#installation).
+
+Then, install the requirements using:
 ```bash
-$ pip install -r test_requirements.txt
+$ poetry install
 ```
 
 You can run the tests using:
 ```bash
-$ pytest
+$ poetry run pytest
 ```
 
 #### Test Coverage
 You can check the code coverage using:
 ```bash
-$ pytest --cov=optional test/
-$ coverage report
+$ poetry run pytest --cov=optional
 ```
