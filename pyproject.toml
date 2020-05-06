@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "optional.py"
+version = "1.1.0"
+description = "An implementation of the Optional object in Python"
+
+license = "MIT"
+
+authors = [
+    "Chad Befus <crbefus@gmail.com>",
+    "Derek Passen <dpassen1@gmail.com>"
+]
+
+readme = "README.md"
+
+repository = "https://github.com/cbefus/optional.py"
+homepage = "https://github.com/cbefus/optional.py"
+
+packages = [
+    { include = "optional" },
+]
+
+keywords = ["optional datatype library"]
+
+[tool.poetry.dependencies]
+python = "~2.7 || ^3.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+pytest-cov = "^2.8"
+coveralls = "^1.11"
+coverage = {version = "^5.0", extras = ["toml"]}
+
+[tool.coverage.report]
+exclude_lines = ["@abstract"]
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
