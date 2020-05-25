@@ -5,7 +5,7 @@ from .exceptions import FlatMapFunctionDoesNotReturnOptionalException
 class Something(AbstractOptional):
     def __init__(self, value, optional):
         if value is None:
-            raise ValueError('Invalid value for Something: None')
+            raise ValueError("Invalid value for Something: None")
 
         self.__value = value
         self.__optional = optional
@@ -48,4 +48,4 @@ class Something(AbstractOptional):
         return isinstance(other, Something) and self.get() == other.get()
 
     def __repr__(self):
-        return 'Optional.of({!r})'.format(self.get())
+        return "Optional.of({!r})".format(self.get())

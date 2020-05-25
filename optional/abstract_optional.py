@@ -4,7 +4,6 @@ from .compatible_abc import CompatibleABC
 
 
 class AbstractOptional(CompatibleABC):
-
     @abstractmethod
     def is_empty(self):
         pass

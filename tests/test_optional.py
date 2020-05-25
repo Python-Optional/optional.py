@@ -8,7 +8,6 @@ from optional.exceptions import (
 
 
 class TestOptional(object):
-
     def test_can_instantiate(self):
         Optional.of(None)
 
@@ -44,68 +43,68 @@ class TestOptional(object):
         assert optional.get() == "thing"
 
     def test_will_run_consumer_if_present(self):
-        scope = {'seen': False}
+        scope = {"seen": False}
 
         def some_thing_consumer(thing):
-            scope['seen'] = True
+            scope["seen"] = True
 
         optional = Optional.of("thing")
         optional.if_present(some_thing_consumer)
-        assert scope['seen']
+        assert scope["seen"]
 
     def test_will_not_run_consumer_if_not_present(self):
-        scope = {'seen': False}
+        scope = {"seen": False}
 
         def some_thing_consumer(thing):
-            scope['seen'] = True
+            scope["seen"] = True
 
         optional = Optional.empty()
         optional.if_present(some_thing_consumer)
-        assert not scope['seen']
+        assert not scope["seen"]
 
     def test_will_run_or_else_from_if_present_when_not_present(self):
         scope = {
-            'if_seen': False,
-            'else_seen': False,
+            "if_seen": False,
+            "else_seen": False,
         }
 
         def some_thing_consumer(thing):
-            scope['if_seen'] = True
+            scope["if_seen"] = True
 
         def or_else_procedure():
-            scope['else_seen'] = True
+            scope["else_seen"] = True
 
         optional = Optional.empty()
         optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        assert not scope['if_seen']
-        assert scope['else_seen']
+        assert not scope["if_seen"]
+        assert scope["else_seen"]
 
     def test_will_not_run_or_else_from_if_present_when_not_empty(self):
         scope = {
-            'if_seen': False,
-            'else_seen': False,
+            "if_seen": False,
+            "else_seen": False,
         }
 
         def some_thing_consumer(thing):
-            scope['if_seen'] = True
+            scope["if_seen"] = True
 
         def or_else_procedure():
-            scope['else_seen'] = True
+            scope["else_seen"] = True
 
         optional = Optional.of(23)
-        value = optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        assert scope['if_seen']
-        assert not scope['else_seen']
+        value = optional.if_present(some_thing_consumer).or_else(
+            or_else_procedure
+        )
+        assert scope["if_seen"]
+        assert not scope["else_seen"]
         assert value.get() == 23
 
     def test_will_return_optional_of_return_val_when_not_present(self):
-
         def or_else_supplier():
             return "pants"
 
         optional = Optional.empty()
         assert optional.or_else(or_else_supplier) == Optional.of("pants")
-
 
     def test_will_raise_on_or_else_raise_from_if_present_when_not_present(self):
         class TestException(Exception):
@@ -113,23 +112,26 @@ class TestOptional(object):
 
         optional = Optional.empty()
         with pytest.raises(TestException):
-            optional.if_present(lambda x: x).or_else_raise(TestException("Something"))
+            optional.if_present(lambda x: x).or_else_raise(
+                TestException("Something")
+            )
 
     def test_wont_raise_on_or_else_raise_from_if_present_when_present(self):
         class ShouldNotHappenException(Exception):
             pass
 
         optional = Optional.of("thing")
-        scope = {'seen': False}
+        scope = {"seen": False}
 
         def some_thing_consumer(thing):
-            scope['seen'] = True
+            scope["seen"] = True
 
-        optional.if_present(some_thing_consumer).or_else_raise(ShouldNotHappenException)
-        assert scope['seen']
+        optional.if_present(some_thing_consumer).or_else_raise(
+            ShouldNotHappenException
+        )
+        assert scope["seen"]
 
     def test_map_returns_empty_if_function_returns_none(self):
-
         def does_nothing(thing):
             return None
 
@@ -137,7 +139,6 @@ class TestOptional(object):
         assert optional.map(does_nothing).is_empty()
 
     def test_map_returns_empty_if_value_is_empty(self):
-
         def does_stuff(thing):
             return "PANTS"
 
@@ -145,7 +146,6 @@ class TestOptional(object):
         assert optional.map(does_stuff).is_empty()
 
     def test_map_returns_optional_wrapped_value_with_map_result(self):
-
         def maps_stuff(thing):
             return thing + "PANTS"
 
@@ -155,7 +155,6 @@ class TestOptional(object):
         assert res.get() == "thingPANTS"
 
     def test_flat_map_returns_empty_if_function_returns_empty_optional(self):
-
         def does_nothing(thing):
             return Optional.empty()
 
@@ -163,7 +162,6 @@ class TestOptional(object):
         assert optional.flat_map(does_nothing).is_empty()
 
     def test_raises_if_flat_map_function_returns_non_optional(self):
-
         def does_not_return_optional(thing):
             return "PANTS"
 
@@ -172,7 +170,6 @@ class TestOptional(object):
             optional.flat_map(does_not_return_optional)
 
     def test_flat_map_returns_empty_if_value_is_empty(self):
-
         def does_stuff(thing):
             return Optional.of("PANTS")
 
@@ -180,7 +177,6 @@ class TestOptional(object):
         assert optional.flat_map(does_stuff).is_empty()
 
     def test_flat_map_returns_unwrapped_value_with_map_result(self):
-
         def maps_stuff(thing):
             return Optional.of(thing + "PANTS")
 
@@ -209,7 +205,7 @@ class TestOptional(object):
         assert eval(repr(optional)) == optional
 
     def test_can_eval_the_representation_of_a_populated_optional(self):
-        optional = Optional.of('23')
+        optional = Optional.of("23")
         assert eval(repr(optional)) == optional
 
     def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
@@ -241,7 +237,7 @@ class TestOptional(object):
             optional.get_or_raise(RandomDomainException())
 
     def test_populated_optionals_are_truthy(self):
-        assert Optional.of('foo')
+        assert Optional.of("foo")
 
     def test_populated_optionals_are_truthy_even_if_their_value_is_falsy(self):
         assert Optional.of(False)

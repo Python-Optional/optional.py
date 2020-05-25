@@ -33,6 +33,9 @@ coverage = {version = "^5.0", extras = ["toml"]}
 [tool.coverage.report]
 exclude_lines = ["@abstract"]
 
+[tool.black]
+line-length = 80
+
 [build-system]
 requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"

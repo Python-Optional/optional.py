@@ -9,4 +9,4 @@ The implementation was taken from https://stackoverflow.com/a/38668373
 from abc import ABCMeta
 
 
-CompatibleABC = ABCMeta('ABC', (object,), {'__slots__': ()})
+CompatibleABC = ABCMeta("ABC", (object,), {"__slots__": ()})

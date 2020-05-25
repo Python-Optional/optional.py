@@ -3,7 +3,6 @@ from .exceptions import OptionalAccessOfEmptyException
 
 
 class Nothing(AbstractOptional):
-
     def __init__(self, optional):
         self.__optional = optional
 
@@ -40,4 +39,4 @@ class Nothing(AbstractOptional):
         return isinstance(other, Nothing)
 
     def __repr__(self):
-        return 'Optional.empty()'
+        return "Optional.empty()"
