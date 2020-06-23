@@ -23,6 +23,7 @@ keywords = ["optional datatype library"]
 
 [tool.poetry.dependencies]
 python = "~2.7 || ^3.5"
+typing = "^3.7.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
