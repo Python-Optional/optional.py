@@ -18,7 +18,7 @@ class AbstractOptional(CompatibleABC):
         pass
 
     @abstractmethod
-    def get_or_raise(self, exception):
+    def get_or_raise(self, raiseable):
         pass
 
     @abstractmethod
@@ -26,7 +26,7 @@ class AbstractOptional(CompatibleABC):
         pass
 
     @abstractmethod
-    def or_else(self, procedure):
+    def or_else(self, supplier):
         pass
 
     @abstractmethod
