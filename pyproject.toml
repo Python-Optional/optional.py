@@ -12,8 +12,8 @@ authors = [
 
 readme = "README.md"
 
-repository = "https://github.com/cbefus/optional.py"
-homepage = "https://github.com/cbefus/optional.py"
+repository = "https://github.com/Python-Optional/optional.py"
+homepage = "https://github.com/Python-Optional/optional.py"
 
 packages = [
     { include = "optional" },
