@@ -1,0 +1,18 @@
+version: "3"
+
+silent: true
+
+tasks:
+  default:
+    cmds:
+      - task --list
+
+  test:
+    desc: Run unit tests
+    cmds:
+      - poetry run python -m pytest
+
+  editorconfig:
+    desc: Check for editorconfig violations using editorconfig-checker
+    cmds:
+      - git ls-files | xargs editorconfig-checker

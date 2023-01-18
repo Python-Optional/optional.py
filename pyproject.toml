@@ -33,6 +33,12 @@ coverage = {version = "^5.0", extras = ["toml"]}
 [tool.coverage.report]
 exclude_lines = ["@abstract"]
 
+[tool.pytest.ini_options]
+addopts = "--cov=optional"
+testpaths = [
+    "tests",
+]
+
 [build-system]
 requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"
