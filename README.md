@@ -1,7 +1,7 @@
 # Optional.py
 [![Build Status](https://img.shields.io/pypi/v/optional.py.svg)](https://pypi.org/project/optional.py/)
-[![Build Status](https://travis-ci.com/cbefus/optional.py.svg?branch=main)](https://travis-ci.com/cbefus/optional.py)
-[![Coverage Status](https://coveralls.io/repos/github/cbefus/optional.py/badge.svg?branch=main)](https://coveralls.io/github/cbefus/optional.py?branch=main)
+[![test](https://github.com/Python-Optional/optional.py/actions/workflows/test.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/test.yaml)
+[![editorconfig](https://github.com/Python-Optional/optional.py/actions/workflows/editorconfig.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/editorconfig.yaml)
 [![License](https://img.shields.io/pypi/l/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Contributors](https://img.shields.io/github/contributors/cbefus/optional.py.svg)](https://pypi.org/project/optional.py/)
