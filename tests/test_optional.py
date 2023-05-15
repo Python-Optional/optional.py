@@ -99,11 +99,13 @@ class TestOptional(object):
         assert value.get() == 23
 
     def test_will_return_optional_of_return_val_when_not_present(self):
+
         def or_else_supplier():
             return "pants"
 
         optional = Optional.empty()
         assert optional.or_else(or_else_supplier) == Optional.of("pants")
+
 
     def test_will_raise_on_or_else_raise_from_if_present_when_not_present(self):
         class TestException(Exception):
@@ -127,6 +129,7 @@ class TestOptional(object):
         assert scope['seen']
 
     def test_map_returns_empty_if_function_returns_none(self):
+
         def does_nothing(thing):
             return None
 
@@ -134,6 +137,7 @@ class TestOptional(object):
         assert optional.map(does_nothing).is_empty()
 
     def test_map_returns_empty_if_value_is_empty(self):
+
         def does_stuff(thing):
             return "PANTS"
 
@@ -141,6 +145,7 @@ class TestOptional(object):
         assert optional.map(does_stuff).is_empty()
 
     def test_map_returns_optional_wrapped_value_with_map_result(self):
+
         def maps_stuff(thing):
             return thing + "PANTS"
 
@@ -150,6 +155,7 @@ class TestOptional(object):
         assert res.get() == "thingPANTS"
 
     def test_flat_map_returns_empty_if_function_returns_empty_optional(self):
+
         def does_nothing(thing):
             return Optional.empty()
 
@@ -157,6 +163,7 @@ class TestOptional(object):
         assert optional.flat_map(does_nothing).is_empty()
 
     def test_raises_if_flat_map_function_returns_non_optional(self):
+
         def does_not_return_optional(thing):
             return "PANTS"
 
@@ -165,6 +172,7 @@ class TestOptional(object):
             optional.flat_map(does_not_return_optional)
 
     def test_flat_map_returns_empty_if_value_is_empty(self):
+
         def does_stuff(thing):
             return Optional.of("PANTS")
 
@@ -172,6 +180,7 @@ class TestOptional(object):
         assert optional.flat_map(does_stuff).is_empty()
 
     def test_flat_map_returns_unwrapped_value_with_map_result(self):
+
         def maps_stuff(thing):
             return Optional.of(thing + "PANTS")
 
