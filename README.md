@@ -269,6 +269,10 @@ $ pip install optional.py
     Optional.of("thing") == Optional.of("PANTS") # False
     ```
 
+16. You can filter the value :smile_cat:
+    ```python
+    Optional.of(0).filter(lambda x: x > 0).is_empty() # True
+    ```
 
 ## Tests
 

@@ -44,6 +44,12 @@ class Something(AbstractOptional):
 
         return res
 
+    def filter(self, predicate):
+        if predicate(self.get()):
+            return self
+        else:
+            return self.__optional.empty()
+
     def __eq__(self, other):
         return isinstance(other, Something) and self.get() == other.get()
 

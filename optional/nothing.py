@@ -36,6 +36,9 @@ class Nothing(AbstractOptional):
     def flat_map(self, func):
         return self
 
+    def filter(self, predicate):
+        return self
+
     def __eq__(self, other):
         return isinstance(other, Nothing)
 

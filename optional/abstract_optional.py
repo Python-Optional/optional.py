@@ -41,6 +41,10 @@ class AbstractOptional(CompatibleABC):
     def flat_map(self, func):
         pass
 
+    @abstractmethod
+    def filter(self, predicate):
+        pass
+
     def is_present(self):
         return not self.is_empty()
 
