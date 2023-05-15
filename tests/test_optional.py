@@ -248,3 +248,7 @@ class TestOptional(object):
 
     def test_empty_optionals_are_falsy(self):
         assert not Optional.empty()
+
+    def test_filter_results_to_empty(self):
+        assert Optional.of(0).filter(lambda x: x > 0).is_empty() is True
+        assert Optional.of(1).filter(lambda x: x > 0).is_empty() is False
