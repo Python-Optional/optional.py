@@ -1,11 +1,11 @@
-name: test
+name: typecheck
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  test:
+  typecheck:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,5 +30,5 @@ jobs:
       - name: Install optional
         run: poetry install
 
-      - name: Run Unit Tests
-        run: task test
+      - name: Run Type Checker
+        run: task typecheck

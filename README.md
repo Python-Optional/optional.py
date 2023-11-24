@@ -1,6 +1,9 @@
 # Optional.py
 [![Build Status](https://img.shields.io/pypi/v/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![test](https://github.com/Python-Optional/optional.py/actions/workflows/test.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/test.yaml)
+[![lint](https://github.com/Python-Optional/optional.py/actions/workflows/lint.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/lint.yaml)
+[![typecheck](https://github.com/Python-Optional/optional.py/actions/workflows/typecheck.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/typecheck.yaml)
+[![format](https://github.com/Python-Optional/optional.py/actions/workflows/format.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/format.yaml)
 [![editorconfig](https://github.com/Python-Optional/optional.py/actions/workflows/editorconfig.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/editorconfig.yaml)
 [![License](https://img.shields.io/pypi/l/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/optional.py.svg)](https://pypi.org/project/optional.py/)
@@ -35,7 +38,7 @@ So we present you with an **Optional** object as an alternative.
 
 ## Install
 
-**Compatible with both python 2 and 3!**
+**Compatible with Python 3.10 and up!**
 
 ```bash
 $ pip install optional.py
@@ -45,7 +48,7 @@ $ pip install optional.py
 
 1. You can import it using:
     ```python
-    from optional import Optional
+    from optional import Nothing, Option, Optional, Something
     ```
 
 2. You can set it to empty:
@@ -74,7 +77,6 @@ $ pip install optional.py
     return Optional.of("thing")
     ```
 
-
 4. You can check if its present:
 
     instead of: :scream_cat:
@@ -84,13 +86,9 @@ $ pip install optional.py
     you can do: :smile_cat:
     ```python
     thing = some_func_returning_an_optional()
-    if thing.is_present():
-    ```
-    or, alternatively: :smirk_cat:
-    ```python
-    thing = some_func_returning_an_optional()
     if thing:
     ```
+    
 5. You can check if its empty:
 
     instead of: :scream_cat:
@@ -100,16 +98,10 @@ $ pip install optional.py
     you can do: :smile_cat:
     ```python
     thing = some_func_returning_an_optional()
-    if thing.is_empty():
-    ```
-    or, alternatively: :smirk_cat:
-    ```python
-    thing = some_func_returning_an_optional()
     if not thing:
     ```
 
-
-6. You can get the value:
+6. You can match against the result and destructure the value:
 
     instead of: :scream_cat:
     ```python
@@ -117,13 +109,12 @@ $ pip install optional.py
     ```
     you can do: :smirk_cat:
     ```python
-    thing = some_func_returning_an_optional()
-    ...
-    print(thing.get())
+    match some_func_returning_an_optional():
+        case Something(thing):
+            print(thing)
     ```
-    **but this is not the recommended way to use this library.**
-
-7. You **can't** get the value if its empty:
+    
+7. You can match against an empty optional, but **can't** destructure the value:
 
     instead of: :crying_cat_face:
     ```python
@@ -132,136 +123,12 @@ $ pip install optional.py
     ```
     you can do: :smirk_cat:
     ```python
-    thing = some_func_returning_an_optional()
-    if thing.is_empty():
-        print(thing.get()) # **will raise an exception**
-    ```
-    **but this will raise an exception!**
-
-8. You can get_or_default which takes a default value:
-
-    instead of: :crying_cat_face:
-    ```python
-    thing = some_func_may_return_none()
-    if thing is None:
-         thing = '23'
-    ```
-    or: :scream_cat:
-    ```python
-    thing = Optional.of(some_func_may_return_none())
-    if thing.is_empty():
-        thing = '23'
-    else:
-        thing = thing.get()
-    ```
-    you can do: :smirk_cat:
-    ```python
-    thing = Optional.of(some_func_may_return_none()).get_or_default('23')
+    match some_func_returning_an_optional()
+        case Nothing():
+            print("We didn't get a thing!")
     ```
 
-9. You can get_or_raise to raise any exception on abscence:
-
-    instead of: :scream_cat:
-    ```python
-    try:
-        thing = some_func_returning_an_optional()
-        return thing.get()
-    except OptionalAccessOfEmptyException:
-        raise MyCustomException()
-    ```
-    you can do: :heart_eyes_cat:
-    ```python
-    return some_func_returning_an_optional().get_or_raise(
-        MyCustomException()
-    )
-    ```
-
-10. **Best Usage:** You can chain on presence:
-
-    instead of: :scream_cat:
-    ```python
-    if thing is not None:
-        print(thing)
-    ```
-    you can do: :heart_eyes_cat:
-    ```python
-    thing = some_func_returning_an_optional()
-    thing.if_present(lambda thing: print(thing))
-    ```
-
-
-11. **Best Usage:** You can chain on non presence:
-
-    instead of: :scream_cat:
-    ```python
-    if thing is not None:
-        print(thing)
-    else:
-        print("PANTS!")
-    ```
-    you can do: :heart_eyes_cat:
-    ```python
-    thing = some_func_returning_an_optional()
-    thing.if_present(lambda thing: print(thing)).or_else(lambda _: print("PANTS!"))
-    ```
-    Note that the lambdas here can be swapped out for actual function names.
-
-12. **Best Usage:** You can run a supplier on non presence:
-
-    instead of: :scream_cat:
-    ```python
-        thing = some_func_returning_an_empty_optional()
-        if thing.is_empty():
-            thing = Optional.of("pants")
-        print(thing.get()) # Prints "pants"
-
-    ```
-    you can do: :heart_eyes_cat:
-    ```python
-        def some_supplier():
-            return "pants"
-        thing = some_func_returning_an_empty_optional().or_else(some_supplier)
-        print(thing.get()) # Prints "pants"
-    ```
-
-12. **Best Usage:** You can raise on non presence:
-
-    instead of: :scream_cat:
-    ```python
-    if thing is None:
-        raise SomeException("Boom!")
-    ```
-    you can do: :heart_eyes_cat:
-    ```python
-    thing = some_func_returning_an_optional()
-    thing.if_present(lambda thing: print(thing)).or_else_raise(SomeException("Boom!"))
-    ```
-
-13. **Best Usage:** You can map a function: :heart_eyes_cat:
-
-    ```python
-    def mapping_func(thing):
-        return thing + "PANTS"
-
-    thing_to_map = Optional.of("thing")
-    mapped_thing = thing_to_map.map(mapping_func) # returns Optional.of("thingPANTS")
-    ```
-    **Note** that if the mapping function returns `None` then the map call will return `Optional.empty()`. Also
-    if you call `map` on an empty optional it will return `Optional.empty()`.
-
-14. **Best Usage:** You can flat map a function which **already returns an Optional**: :heart_eyes_cat:
-    ```python
-    def flat_mapping_func(thing):
-        return Optional.of(thing + "PANTS")
-
-    thing_to_map = Optional.of("thing")
-    mapped_thing = thing_to_map.map(mapping_func) # returns Optional.of("thingPANTS")
-    ```
-    **Note** that this does not return an Optional of an Optional.  __Use this for mapping functions which return optionals.__
-    If the mapping function you use with this does not return an Optional, calling `flat_map` will raise a
-    `FlatMapFunctionDoesNotReturnOptionalException`.
-
-15. You can compare two optionals: :smile_cat:
+8. You can compare two optionals: :smile_cat:
     ```python
     Optional.empty() == Optional.empty() # True
     Optional.of("thing") == Optional.of("thing") # True
@@ -272,7 +139,7 @@ $ pip install optional.py
 
 ## Tests
 
-There is complete test coverage and they pass in both python 2 and 3.
+There is complete test coverage and they pass in all Python versions 3.10 and up.
 
 ### Running Unit Tests
 
@@ -283,13 +150,7 @@ Then, install the requirements using:
 $ poetry install
 ```
 
-You can run the tests using:
+You can run the tests (with coverage) using:
 ```bash
 $ poetry run pytest
-```
-
-#### Test Coverage
-You can check the code coverage using:
-```bash
-$ poetry run pytest --cov=optional
 ```
