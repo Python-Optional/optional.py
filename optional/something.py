@@ -1,10 +1,8 @@
 from types import NotImplementedType
-from typing import Any, Generic, TypeVar
-
-T = TypeVar("T")
+from typing import Any
 
 
-class Something(Generic[T]):
+class Something[T]:
     """Represents the presence of a value.
 
     Rarely instantiated on its own, see :func:`Optional.of`"""
