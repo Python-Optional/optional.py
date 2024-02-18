@@ -4,15 +4,24 @@ silent: true
 
 tasks:
   default:
-    cmds:
-      - task --list
+    cmd: task --list
 
   test:
     desc: Run unit tests
-    cmds:
-      - poetry run python -m pytest
+    cmd: poetry run python -m pytest
+
+  lint:
+    desc: Lint code using ruff
+    cmd: poetry run python -m ruff check optional tests
+
+  format:
+    desc: Format code using ruff
+    cmd: poetry run python -m ruff format optional tests
+
+  typecheck:
+    desc: Check types using mypy
+    cmd: poetry run python -m mypy optional tests
 
   editorconfig:
     desc: Check for editorconfig violations using editorconfig-checker
-    cmds:
-      - git ls-files | xargs editorconfig-checker
+    cmd: editorconfig-checker
