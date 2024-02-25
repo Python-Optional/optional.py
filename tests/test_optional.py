@@ -1,250 +1,100 @@
 import pytest
 
-from optional import Optional
-from optional.exceptions import (
-    OptionalAccessOfEmptyException,
-    FlatMapFunctionDoesNotReturnOptionalException,
-)
+from optional import Nothing, Optional, Something
 
 
-class TestOptional(object):
-
-    def test_can_instantiate(self):
-        Optional.of(None)
-
-    def test_instantiate_empty(self):
-        optional = Optional.empty()
-        assert optional.is_empty()
-
-    def test_instantiate_with_content(self):
-        optional = Optional.of("something")
-        assert not optional.is_empty()
-
-    def test_instantiate_with_none(self):
-        optional = Optional.of(None)
-        assert optional.is_empty()
-
-    def test_is_present_with_content(self):
-        optional = Optional.of("thing")
-        assert optional.is_present()
-
-    def test_is_not_present_with_empty(self):
-        optional = Optional.of(None)
-        assert not optional.is_present()
-
-    def test_cannot_get_from_empty_even_after_checking(self):
-        optional = Optional.empty()
-        assert optional.is_empty()
-        with pytest.raises(OptionalAccessOfEmptyException):
-            optional.get()
-
-    def test_can_get_when_present_and_have_checked(self):
-        optional = Optional.of("thing")
-        assert optional.is_present()
-        assert optional.get() == "thing"
-
-    def test_will_run_consumer_if_present(self):
-        scope = {'seen': False}
-
-        def some_thing_consumer(thing):
-            scope['seen'] = True
-
-        optional = Optional.of("thing")
-        optional.if_present(some_thing_consumer)
-        assert scope['seen']
-
-    def test_will_not_run_consumer_if_not_present(self):
-        scope = {'seen': False}
-
-        def some_thing_consumer(thing):
-            scope['seen'] = True
-
-        optional = Optional.empty()
-        optional.if_present(some_thing_consumer)
-        assert not scope['seen']
-
-    def test_will_run_or_else_from_if_present_when_not_present(self):
-        scope = {
-            'if_seen': False,
-            'else_seen': False,
-        }
-
-        def some_thing_consumer(thing):
-            scope['if_seen'] = True
-
-        def or_else_procedure():
-            scope['else_seen'] = True
-
-        optional = Optional.empty()
-        optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        assert not scope['if_seen']
-        assert scope['else_seen']
-
-    def test_will_not_run_or_else_from_if_present_when_not_empty(self):
-        scope = {
-            'if_seen': False,
-            'else_seen': False,
-        }
-
-        def some_thing_consumer(thing):
-            scope['if_seen'] = True
-
-        def or_else_procedure():
-            scope['else_seen'] = True
-
-        optional = Optional.of(23)
-        value = optional.if_present(some_thing_consumer).or_else(or_else_procedure)
-        assert scope['if_seen']
-        assert not scope['else_seen']
-        assert value.get() == 23
-
-    def test_will_return_optional_of_return_val_when_not_present(self):
-
-        def or_else_supplier():
-            return "pants"
-
-        optional = Optional.empty()
-        assert optional.or_else(or_else_supplier) == Optional.of("pants")
+def test_can_instantiate():
+    Optional.of()
 
 
-    def test_will_raise_on_or_else_raise_from_if_present_when_not_present(self):
-        class TestException(Exception):
+def test_can_instantiate_empty():
+    Optional.empty()
+
+
+def test_can_instantiate_with_content():
+    Optional.of("something")
+
+
+def test_can_instantiate_with_none():
+    Optional.of(None)
+
+
+def test_can_structurally_match_against_nothing():
+    match Optional.empty():
+        case Something():
+            pytest.fail("An empty Optional should not match against Something")
+        case Nothing():
             pass
+        case _:
+            pytest.fail("An Optional should either be Something or Nothing")
 
-        optional = Optional.empty()
-        with pytest.raises(TestException):
-            optional.if_present(lambda x: x).or_else_raise(TestException("Something"))
 
-    def test_wont_raise_on_or_else_raise_from_if_present_when_present(self):
-        class ShouldNotHappenException(Exception):
+def test_can_structurally_match_against_something():
+    match Optional.of("thing"):
+        case Something():
             pass
+        case Nothing():
+            pytest.fail("A populated Optional should not match against Nothing")
+        case _:
+            pytest.fail("An Optional should either be Something or Nothing")
 
-        optional = Optional.of("thing")
-        scope = {'seen': False}
 
-        def some_thing_consumer(thing):
-            scope['seen'] = True
+def test_can_structurally_match_against_something_and_extract():
+    match Optional.of(23):
+        case Something(x):
+            assert 23 == x
+        case Nothing():
+            pytest.fail("A populated Optional should not match against Nothing")
+        case _:
+            pytest.fail("An Optional should either be Something or Nothing")
 
-        optional.if_present(some_thing_consumer).or_else_raise(ShouldNotHappenException)
-        assert scope['seen']
 
-    def test_map_returns_empty_if_function_returns_none(self):
+def test_optional_not_equal_with_non_optional():
+    assert "PANTS" != Optional.of("PANTS")
+    assert Optional.of("PANTS") != "PANTS"
 
-        def does_nothing(thing):
-            return None
 
-        optional = Optional.of("thing")
-        assert optional.map(does_nothing).is_empty()
+def test_empty_optionals_are_equal():
+    assert Optional.empty() == Optional.empty()
 
-    def test_map_returns_empty_if_value_is_empty(self):
 
-        def does_stuff(thing):
-            return "PANTS"
+def test_empty_optional_not_equal_non_empty_optional():
+    assert Optional.empty() != Optional.of("thing")
 
-        optional = Optional.empty()
-        assert optional.map(does_stuff).is_empty()
 
-    def test_map_returns_optional_wrapped_value_with_map_result(self):
+def test_non_empty_optionals_with_non_equal_content_are_not_equal():
+    assert Optional.of("PANTS") != Optional.of("thing")
 
-        def maps_stuff(thing):
-            return thing + "PANTS"
 
-        optional = Optional.of("thing")
-        res = optional.map(maps_stuff)
-        assert res.is_present()
-        assert res.get() == "thingPANTS"
+def test_non_empty_optionals_with_equal_content_are_equal():
+    assert Optional.of("PANTS") == Optional.of("PANTS")
 
-    def test_flat_map_returns_empty_if_function_returns_empty_optional(self):
 
-        def does_nothing(thing):
-            return Optional.empty()
+def test_can_eval_the_representation_of_an_empty_optional():
+    optional = Optional.empty()
+    assert eval(repr(optional)) == optional
 
-        optional = Optional.of("thing")
-        assert optional.flat_map(does_nothing).is_empty()
 
-    def test_raises_if_flat_map_function_returns_non_optional(self):
+def test_can_eval_the_representation_of_a_populated_optional():
+    optional = Optional.of("23")
+    assert eval(repr(optional)) == optional
 
-        def does_not_return_optional(thing):
-            return "PANTS"
 
-        optional = Optional.of("thing")
-        with pytest.raises(FlatMapFunctionDoesNotReturnOptionalException):
-            optional.flat_map(does_not_return_optional)
+def test_can_instantiate_an_empty_optional_via_the_zero_arity_of():
+    assert Optional.of() == Optional.empty()
 
-    def test_flat_map_returns_empty_if_value_is_empty(self):
 
-        def does_stuff(thing):
-            return Optional.of("PANTS")
+def test_can_instantiate_an_empty_optional_via_none():
+    assert Optional.of(None) == Optional.empty()
 
-        optional = Optional.empty()
-        assert optional.flat_map(does_stuff).is_empty()
 
-    def test_flat_map_returns_unwrapped_value_with_map_result(self):
+def test_populated_optionals_are_truthy():
+    assert Optional.of("foo")
 
-        def maps_stuff(thing):
-            return Optional.of(thing + "PANTS")
 
-        optional = Optional.of("thing")
-        res = optional.flat_map(maps_stuff)
-        assert res.is_present()
-        assert res.get() == "thingPANTS"
+def test_populated_optionals_are_truthy_even_if_their_value_is_falsy():
+    assert Optional.of(False)
 
-    def test_optional_not_equal_with_non_optional(self):
-        assert "PANTS" != Optional.of("PANTS")
 
-    def test_empty_optionals_are_equal(self):
-        assert Optional.empty() == Optional.empty()
-
-    def test_empty_optional_not_equal_non_empty_optional(self):
-        assert Optional.empty() != Optional.of("thing")
-
-    def test_non_empty_optionals_with_non_equal_content_are_not_equal(self):
-        assert Optional.of("PANTS") != Optional.of("thing")
-
-    def test_non_empty_optionals_with_equal_content_are_equal(self):
-        assert Optional.of("PANTS") == Optional.of("PANTS")
-
-    def test_can_eval_the_representation_of_an_empty_optional(self):
-        optional = Optional.empty()
-        assert eval(repr(optional)) == optional
-
-    def test_can_eval_the_representation_of_a_populated_optional(self):
-        optional = Optional.of('23')
-        assert eval(repr(optional)) == optional
-
-    def test_can_instantiate_an_empty_optional_via_the_zero_arity_of(self):
-        assert Optional.of() == Optional.empty()
-
-    def test_get_or_default_on_a_populated_optional_ignores_default_value(self):
-        optional = Optional.of("thing")
-        assert optional.get_or_default("pants") == optional.get()
-
-    def test_get_or_default_on_an_empty_optional_returns_default_value(self):
-        optional = Optional.empty()
-        assert optional.get_or_default("pants") == "pants"
-
-    def test_get_or_raise_on_a_populated_optional_returns_value(self):
-        optional = Optional.of("thing")
-
-        class RandomDomainException(Exception):
-            pass
-
-        assert optional.get_or_raise(RandomDomainException()) == optional.get()
-
-    def test_get_or_raise_on_an_empty_optional_throws_wrapped_exception(self):
-        optional = Optional.empty()
-
-        class RandomDomainException(Exception):
-            pass
-
-        with pytest.raises(RandomDomainException):
-            optional.get_or_raise(RandomDomainException())
-
-    def test_populated_optionals_are_truthy(self):
-        assert Optional.of('foo')
-
-    def test_populated_optionals_are_truthy_even_if_their_value_is_falsy(self):
-        assert Optional.of(False)
-
-    def test_empty_optionals_are_falsy(self):
-        assert not Optional.empty()
+def test_empty_optionals_are_falsy():
+    assert not Optional.empty()

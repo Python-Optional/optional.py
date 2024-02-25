@@ -1,43 +1,20 @@
-from .abstract_optional import AbstractOptional
-from .exceptions import OptionalAccessOfEmptyException
+from types import NotImplementedType
+from typing import Any
 
 
-class Nothing(AbstractOptional):
+class Nothing:
+    """Represents the absence of a value.
 
-    def __init__(self, optional):
-        self.__optional = optional
+    Rarely instantiated on its own, see :func:`Optional.empty`"""
 
-    def is_empty(self):
+    def __eq__(self, other: Any) -> bool | NotImplementedType:
+        if not isinstance(other, Nothing):
+            return NotImplemented
+
         return True
 
-    def get(self):
-        raise OptionalAccessOfEmptyException(
-            "You cannot call get on an empty optional"
-        )
+    def __repr__(self) -> str:
+        return "Optional.empty()"
 
-    def get_or_default(self, default_value):
-        return default_value
-
-    def get_or_raise(self, raiseable):
-        raise raiseable
-
-    def if_present(self, consumer):
-        return self
-
-    def or_else(self, supplier):
-        return self.__optional.of(supplier())
-
-    def or_else_raise(self, raiseable):
-        raise raiseable
-
-    def map(self, func):
-        return self
-
-    def flat_map(self, func):
-        return self
-
-    def __eq__(self, other):
-        return isinstance(other, Nothing)
-
-    def __repr__(self):
-        return 'Optional.empty()'
+    def __bool__(self) -> bool:
+        return False

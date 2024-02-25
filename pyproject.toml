@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "optional.py"
-version = "1.3.2"
+version = "2.0.0"
 description = "An implementation of the Optional object in Python"
 
 license = "MIT"
@@ -22,16 +22,20 @@ packages = [
 keywords = ["optional datatype library"]
 
 [tool.poetry.dependencies]
-python = "~2.7 || ^3.5"
+python = "^3.10"
 
-[tool.poetry.dev-dependencies]
-pytest = "^3.0"
-pytest-cov = "^2.8"
-coveralls = "^1.11"
-coverage = {version = "^5.0", extras = ["toml"]}
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.0"
+mypy = "^1.6.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2"
+pytest-cov = "^4.0"
+coveralls = "^3.3"
+coverage = "^6.5"
 
 [tool.coverage.report]
-exclude_lines = ["@abstract"]
+exclude_lines = ["@overload"]
 
 [tool.pytest.ini_options]
 addopts = "--cov=optional"
@@ -39,6 +43,12 @@ testpaths = [
     "tests",
 ]
 
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
 [build-system]
-requires = ["poetry>=1.0.0"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
