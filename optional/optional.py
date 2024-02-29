@@ -17,18 +17,15 @@ class Optional:
 
     @staticmethod
     @overload
-    def of() -> Nothing:
-        ...
+    def of() -> Nothing: ...
 
     @staticmethod
     @overload
-    def of(thing: None) -> Nothing:
-        ...
+    def of(thing: None) -> Nothing: ...
 
     @staticmethod
     @overload
-    def of(thing: T) -> Something[T]:
-        ...
+    def of(thing: T) -> Something[T]: ...
 
     @staticmethod
     def of(thing: T | None = None) -> Option[T]:
