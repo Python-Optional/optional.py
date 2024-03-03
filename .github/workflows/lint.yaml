@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2
         with:
-          poetry-version: "1.8.1"
+          poetry-version: "1.8.2"
 
       - name: Install Task
         uses: arduino/setup-task@v1
