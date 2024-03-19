@@ -15,7 +15,7 @@ jobs:
         uses: editorconfig-checker/action-editorconfig-checker@main
 
       - name: Install Task
-        uses: arduino/setup-task@v1
+        uses: arduino/setup-task@v2
 
       - name: Run editorconfig-checker
         run: task editorconfig
