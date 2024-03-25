@@ -30,7 +30,7 @@ mypy = "^1.6.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = ">=7.2,<9.0"
-pytest-cov = "^4.0"
+pytest-cov = ">=4,<6"
 coveralls = "^3.3"
 coverage = "^6.5"
 
