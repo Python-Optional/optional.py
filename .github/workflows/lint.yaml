@@ -24,11 +24,13 @@ jobs:
         with:
           poetry-version: "1.8.3"
 
-      - name: Install Task
-        uses: arduino/setup-task@v2
+      - name: Install Mise
+        uses: jdx/mise-action@v2
+        with:
+          experimental: true
 
       - name: Install optional
         run: poetry install
 
       - name: Run Linter
-        run: task lint
+        run: mise run lint

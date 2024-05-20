@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# mise description="Check types using mypy"
+
+set -o nounset
+set -o errexit
+set -o pipefail
+
+typecheck () {
+    poetry run python -m mypy optional tests
+}
+
+typecheck
