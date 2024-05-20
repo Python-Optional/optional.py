@@ -14,8 +14,10 @@ jobs:
       - name: Install editorconfig-checker
         uses: editorconfig-checker/action-editorconfig-checker@main
 
-      - name: Install Task
-        uses: arduino/setup-task@v2
+      - name: Install Mise
+        uses: jdx/mise-action@v2
+        with:
+          experimental: true
 
       - name: Run editorconfig-checker
-        run: task editorconfig
+        run: mise run editorconfig

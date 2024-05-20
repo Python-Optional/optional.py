@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# mise description="Check for editorconfig violations using editorconfig-checker"
+
+set -o nounset
+set -o errexit
+set -o pipefail
+
+editorconfig () {
+    editorconfig-checker
+}
+
+editorconfig
