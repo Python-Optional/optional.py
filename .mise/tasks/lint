@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# mise description="Lint code using ruff"
+#MISE description="Lint code using ruff"
 
 set -o nounset
 set -o errexit

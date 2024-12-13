@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# mise description="Check types using mypy"
+#MISE description="Check types using mypy"
 
 set -o nounset
 set -o errexit

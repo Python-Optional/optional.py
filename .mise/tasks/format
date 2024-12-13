@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# mise description="Format code using ruff"
+#MISE description="Format code using ruff"
 
 set -o nounset
 set -o errexit

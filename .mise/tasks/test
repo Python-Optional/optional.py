@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# mise description="Run unit tests"
+#MISE description="Run unit tests"
 
 set -o nounset
 set -o errexit
