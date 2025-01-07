@@ -30,7 +30,7 @@ jobs:
           experimental: true
 
       - name: Install optional
-        run: poetry install
+        run: poetry install --all-extras
 
       - name: Run Formatter
         run: mise run format

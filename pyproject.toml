@@ -1,38 +1,26 @@
-[tool.poetry]
+[project]
 name = "optional.py"
 version = "2.0.0"
 description = "An implementation of the Optional object in Python"
-
 license = "MIT"
-
 authors = [
-    "Chad Befus <crbefus@gmail.com>",
-    "Derek Passen <dpassen1@gmail.com>"
+  {name = "Chad Befus", email = "crbefus@gmail.com"},
+  {name = "Derek Passen", email = "dpassen1@gmail.com"}
 ]
-
 readme = "README.md"
-
 repository = "https://github.com/Python-Optional/optional.py"
 homepage = "https://github.com/Python-Optional/optional.py"
+keywords = ["optional datatype library"]
+requires-python = ">= 3.10"
 
+[project.optional-dependencies]
+dev = ["ruff", "mypy"]
+test = ["pytest", "pytest-cov", "coveralls", "coverage"]
+
+[tool.poetry]
 packages = [
     { include = "optional" },
 ]
-
-keywords = ["optional datatype library"]
-
-[tool.poetry.dependencies]
-python = "^3.10"
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.8.0"
-mypy = "^1.6.0"
-
-[tool.poetry.group.test.dependencies]
-pytest = ">=7.2,<9.0"
-pytest-cov = ">=4,<6"
-coveralls = "^3.3"
-coverage = "^6.5"
 
 [tool.coverage.report]
 exclude_lines = ["@overload"]
@@ -50,5 +38,5 @@ line-length = 88
 select = ["E", "F", "I"]
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0"]
 build-backend = "poetry.core.masonry.api"

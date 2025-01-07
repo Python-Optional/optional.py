@@ -177,7 +177,7 @@ First, install `poetry` using the instructions located [here](https://python-poe
 Then, install the requirements using:
 
 ```bash
-poetry install
+poetry install --all-extras
 ```
 
 You can run the tests (with coverage) using:
