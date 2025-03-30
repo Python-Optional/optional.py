@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v4
         with:
-          poetry-version: "2.1.1"
+          poetry-version: "2.1.2"
 
       - name: Install Mise
         uses: jdx/mise-action@v2
