@@ -29,8 +29,11 @@ jobs:
         with:
           experimental: true
 
+      - name: Install just
+        uses: extractions/setup-just@v3
+
       - name: Install optional
         run: poetry install --all-extras
 
       - name: Run Type Checker
-        run: mise run typecheck
+        run: just typecheck

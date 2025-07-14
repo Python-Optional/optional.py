@@ -19,5 +19,8 @@ jobs:
         with:
           experimental: true
 
+      - name: Install just
+        uses: extractions/setup-just@v3
+
       - name: Run editorconfig-checker
-        run: mise run editorconfig
+        run: just editorconfig

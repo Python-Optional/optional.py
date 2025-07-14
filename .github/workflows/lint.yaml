@@ -29,8 +29,11 @@ jobs:
         with:
           experimental: true
 
+      - name: Install Just
+        uses: extractions/setup-just@v3
+
       - name: Install optional
         run: poetry install --all-extras
 
       - name: Run Linter
-        run: mise run lint
+        run: just lint
