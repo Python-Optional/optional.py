@@ -25,7 +25,7 @@ jobs:
           poetry-version: "2.1.4"
 
       - name: Install Mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
         with:
           experimental: true
 
