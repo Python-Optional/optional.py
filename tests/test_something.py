@@ -1,6 +1,6 @@
 import pytest
 
-from optional import Optional, Something
+from optional_py import Optional, Something
 
 
 def test_can_not_instantiate_with_a_none_value():

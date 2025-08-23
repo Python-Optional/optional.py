@@ -3,40 +3,37 @@ name = "optional.py"
 version = "2.0.0"
 description = "An implementation of the Optional object in Python"
 license = "MIT"
-authors = [
-  {name = "Chad Befus", email = "crbefus@gmail.com"},
-  {name = "Derek Passen", email = "dpassen1@gmail.com"}
-]
 readme = "README.md"
-repository = "https://github.com/Python-Optional/optional.py"
-homepage = "https://github.com/Python-Optional/optional.py"
-keywords = ["optional datatype library"]
-requires-python = ">= 3.10"
+authors = [
+  { name = "Chad Befus", email = "crbefus@gmail.com" },
+  { name = "Derek Passen", email = "dpassen1@gmail.com" },
+]
+requires-python = ">=3.10"
+dependencies = []
 
-[project.optional-dependencies]
-dev = ["ruff", "mypy"]
-test = ["pytest", "pytest-cov", "coveralls", "coverage"]
+[build-system]
+requires = ["uv_build>=0.8.13,<0.9.0"]
+build-backend = "uv_build"
 
-[tool.poetry]
-packages = [
-    { include = "optional" },
+[dependency-groups]
+dev = [
+  "coverage>=7.10.5",
+  "coveralls>=4.0.1",
+  "mypy>=1.17.1",
+  "pytest>=8.4.1",
+  "pytest-cov>=6.2.1",
+  "ruff>=0.12.10",
 ]
 
 [tool.coverage.report]
 exclude_lines = ["@overload"]
 
 [tool.pytest.ini_options]
-addopts = "--cov=optional"
-testpaths = [
-    "tests",
-]
+addopts = "--cov=optional_py"
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 88
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
-
-[build-system]
-requires = ["poetry-core>=2.0"]
-build-backend = "poetry.core.masonry.api"

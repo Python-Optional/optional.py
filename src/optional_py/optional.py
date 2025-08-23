@@ -1,7 +1,7 @@
 from typing import TypeAlias, TypeVar, overload
 
-from optional.nothing import Nothing
-from optional.something import Something
+from .nothing import Nothing
+from .something import Something
 
 T = TypeVar("T")
 

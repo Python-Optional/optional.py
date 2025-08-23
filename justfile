@@ -4,19 +4,19 @@ default:
 
 # Run unit tests
 test:
-    @poetry run python -m pytest
+    @uv run python -m pytest
 
 # Lint code using ruff
 lint:
-    @poetry run python -m ruff check optional tests
+    @uv run python -m ruff check src tests
 
 # Format code using ruff
 format:
-    @poetry run python -m ruff format optional tests
+    @uv run python -m ruff format src tests
 
 # Check types using mypy
 typecheck:
-    @poetry run python -m mypy optional tests
+    @uv run python -m mypy src tests
 
 # Check for editorconfig violations using editorconfig-checker
 editorconfig:

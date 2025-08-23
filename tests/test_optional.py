@@ -1,6 +1,6 @@
 import pytest
 
-from optional import Nothing, Optional, Something
+from optional_py import Nothing, Optional, Something
 
 
 def test_can_instantiate():
