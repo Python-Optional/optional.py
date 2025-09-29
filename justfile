@@ -1,5 +1,5 @@
-[private]
-default:
+[default, private]
+commands:
     @just --list
 
 # Run unit tests
