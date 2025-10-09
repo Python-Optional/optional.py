@@ -1,3 +1,5 @@
+# pyright: reportUnusedCallResult = false
+
 import pytest
 
 from optional import Optional, Something
