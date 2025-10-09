@@ -4,8 +4,8 @@ version = "2.0.0"
 description = "An implementation of the Optional object in Python"
 license = "MIT"
 authors = [
-  {name = "Chad Befus", email = "crbefus@gmail.com"},
-  {name = "Derek Passen", email = "dpassen1@gmail.com"}
+  { name = "Chad Befus", email = "crbefus@gmail.com" },
+  { name = "Derek Passen", email = "dpassen1@gmail.com" },
 ]
 readme = "README.md"
 repository = "https://github.com/Python-Optional/optional.py"
@@ -14,22 +14,18 @@ keywords = ["optional datatype library"]
 requires-python = ">= 3.10"
 
 [project.optional-dependencies]
-dev = ["ruff", "mypy"]
+dev = ["ruff", "basedpyright", "typing-extensions"]
 test = ["pytest", "pytest-cov", "coveralls", "coverage"]
 
 [tool.poetry]
-packages = [
-    { include = "optional" },
-]
+packages = [{ include = "optional" }]
 
 [tool.coverage.report]
 exclude_lines = ["@overload"]
 
 [tool.pytest.ini_options]
 addopts = "--cov=optional"
-testpaths = [
-    "tests",
-]
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 88

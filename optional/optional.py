@@ -21,7 +21,7 @@ class Optional:
 
     @staticmethod
     @overload
-    def of(thing: None) -> Nothing: ...
+    def of(thing: None) -> Nothing: ...  # pyright: ignore[reportOverlappingOverload]
 
     @staticmethod
     @overload

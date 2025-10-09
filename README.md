@@ -3,7 +3,6 @@
 [![Build Status](https://img.shields.io/pypi/v/optional.py.svg)](https://pypi.org/project/optional.py/)
 [![test](https://github.com/Python-Optional/optional.py/actions/workflows/test.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/test.yaml)
 [![lint](https://github.com/Python-Optional/optional.py/actions/workflows/lint.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/lint.yaml)
-[![typecheck](https://github.com/Python-Optional/optional.py/actions/workflows/typecheck.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/typecheck.yaml)
 [![format](https://github.com/Python-Optional/optional.py/actions/workflows/format.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/format.yaml)
 [![editorconfig](https://github.com/Python-Optional/optional.py/actions/workflows/editorconfig.yaml/badge.svg)](https://github.com/Python-Optional/optional.py/actions/workflows/editorconfig.yaml)
 [![License](https://img.shields.io/pypi/l/optional.py.svg)](https://pypi.org/project/optional.py/)

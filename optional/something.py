@@ -25,7 +25,7 @@ class Something(Generic[T]):
         if not isinstance(other, Something):
             return NotImplemented
 
-        return self._value == other._value
+        return self._value == other._value  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
 
     @override
     def __repr__(self) -> str:

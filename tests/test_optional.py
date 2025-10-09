@@ -1,3 +1,7 @@
+# pyright: reportUnnecessaryComparison=false
+# pyright: reportUnreachable=false
+# pyright: reportUnusedCallResult = false
+
 import pytest
 
 from optional import Nothing, Optional, Something

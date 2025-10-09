@@ -6,17 +6,23 @@ commands:
 test:
     @poetry run python -m pytest
 
+# Lint source code
+[parallel]
+lint: lint-ruff lint-basedpyright
+
 # Lint code using ruff
-lint:
+[private]
+lint-ruff:
     @poetry run python -m ruff check optional tests
+
+# Lint code using basedpyright
+[private]
+lint-basedpyright:
+    @poetry run python -m basedpyright optional tests
 
 # Format code using ruff
 format:
     @poetry run python -m ruff format optional tests
-
-# Check types using mypy
-typecheck:
-    @poetry run python -m mypy optional tests
 
 # Check for editorconfig violations using editorconfig-checker
 editorconfig:
