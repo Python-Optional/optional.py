@@ -1,9 +1,12 @@
 from types import NotImplementedType
-from typing import Any, Generic, TypeVar
+from typing import Generic, TypeVar, final
+
+from typing_extensions import override
 
 T = TypeVar("T")
 
 
+@final
 class Something(Generic[T]):
     """Represents the presence of a value.
 
@@ -17,12 +20,14 @@ class Something(Generic[T]):
 
         self._value = value
 
-    def __eq__(self, other: Any) -> bool | NotImplementedType:
+    @override
+    def __eq__(self, other: object) -> bool | NotImplementedType:
         if not isinstance(other, Something):
             return NotImplemented
 
         return self._value == other._value
 
+    @override
     def __repr__(self) -> str:
         return f"Optional.of({self._value!r})"
 
