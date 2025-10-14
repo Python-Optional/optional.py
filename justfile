@@ -4,7 +4,7 @@ commands:
 
 # Run unit tests
 test:
-    @poetry run python -m pytest
+    @uv run python -m pytest
 
 # Lint source code
 [parallel]
@@ -13,16 +13,16 @@ lint: lint-ruff lint-basedpyright
 # Lint code using ruff
 [private]
 lint-ruff:
-    @poetry run python -m ruff check optional tests
+    @uv run python -m ruff check src tests
 
 # Lint code using basedpyright
 [private]
 lint-basedpyright:
-    @poetry run python -m basedpyright optional tests
+    @uv run python -m basedpyright src tests
 
 # Format code using ruff
 format:
-    @poetry run python -m ruff format optional tests
+    @uv run python -m ruff format src tests
 
 # Check for editorconfig violations using editorconfig-checker
 editorconfig:
