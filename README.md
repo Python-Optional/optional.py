@@ -171,16 +171,16 @@ There is complete test coverage and they pass in all Python versions 3.10 and up
 
 ### Running Unit Tests
 
-First, install `poetry` using the instructions located [here](https://python-poetry.org/docs/#installation).
+First, install `uv` using the instructions located [here](https://docs.astral.sh/uv/getting-started/installation).
 
 Then, install the requirements using:
 
 ```bash
-poetry install --all-extras
+uv sync --all-extras
 ```
 
 You can run the tests (with coverage) using:
 
 ```bash
-poetry run pytest
+uv run pytest
 ```

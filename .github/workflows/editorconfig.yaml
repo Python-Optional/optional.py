@@ -14,11 +14,6 @@ jobs:
       - name: Install editorconfig-checker
         uses: editorconfig-checker/action-editorconfig-checker@main
 
-      - name: Install Mise
-        uses: jdx/mise-action@v3
-        with:
-          experimental: true
-
       - name: Install just
         uses: extractions/setup-just@v3
 
