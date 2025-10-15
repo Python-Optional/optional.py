@@ -32,7 +32,6 @@ module-name = "optional"
 
 [tool.pytest.ini_options]
 addopts = "--cov=optional"
-testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 88
