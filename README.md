@@ -45,7 +45,7 @@ So we present you with an **Optional** object as an alternative.
 
 ## Install
 
-**Compatible with Python 3.10 and up!**
+**Compatible with Python 3.12 and up!**
 
 ```bash
 pip install optional.py
@@ -167,7 +167,7 @@ pip install optional.py
 
 ## Tests
 
-There is complete test coverage and they pass in all Python versions 3.10 and up.
+There is complete test coverage and they pass in all Python versions 3.12 and up.
 
 ### Running Unit Tests
 
