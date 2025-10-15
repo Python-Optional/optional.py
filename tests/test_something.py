@@ -11,4 +11,4 @@ def test_can_not_instantiate_with_a_none_value():
 
 
 def test_can_instantiate_with_any_other_value():
-    assert Something(23) == Optional.of(23)
+    assert Something(23) == Optional[int].of(23)

@@ -1,15 +1,12 @@
-from typing import TypeAlias, TypeVar, overload
+from typing import overload
 
 from optional.nothing import Nothing
 from optional.something import Something
 
-T = TypeVar("T")
+type Option[T] = Something[T] | Nothing
 
 
-Option: TypeAlias = Something[T] | Nothing
-
-
-class Optional:
+class Optional[T]:
     """Entrypoint of optional.py
 
     Provides static methods to help intelligently create
@@ -21,7 +18,7 @@ class Optional:
 
     @staticmethod
     @overload
-    def of(thing: None) -> Nothing: ...  # pyright: ignore[reportOverlappingOverload]
+    def of(thing: None) -> Nothing: ...
 
     @staticmethod
     @overload

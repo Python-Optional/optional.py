@@ -16,11 +16,11 @@ def test_can_instantiate_empty():
 
 
 def test_can_instantiate_with_content():
-    Optional.of("something")
+    Optional[str].of("something")
 
 
 def test_can_instantiate_with_none():
-    Optional.of(None)
+    Optional[None].of(None)
 
 
 def test_can_structurally_match_against_nothing():
@@ -34,7 +34,7 @@ def test_can_structurally_match_against_nothing():
 
 
 def test_can_structurally_match_against_something():
-    match Optional.of("thing"):
+    match Optional[str].of("thing"):
         case Something():
             pass
         case Nothing():
@@ -44,7 +44,7 @@ def test_can_structurally_match_against_something():
 
 
 def test_can_structurally_match_against_something_and_extract():
-    match Optional.of(23):
+    match Optional[int].of(23):
         case Something(x):
             assert 23 == x
         case Nothing():
@@ -54,8 +54,8 @@ def test_can_structurally_match_against_something_and_extract():
 
 
 def test_optional_not_equal_with_non_optional():
-    assert "PANTS" != Optional.of("PANTS")
-    assert Optional.of("PANTS") != "PANTS"
+    assert "PANTS" != Optional[str].of("PANTS")
+    assert Optional[str].of("PANTS") != "PANTS"
 
 
 def test_empty_optionals_are_equal():
@@ -63,15 +63,15 @@ def test_empty_optionals_are_equal():
 
 
 def test_empty_optional_not_equal_non_empty_optional():
-    assert Optional.empty() != Optional.of("thing")
+    assert Optional.empty() != Optional[str].of("thing")
 
 
 def test_non_empty_optionals_with_non_equal_content_are_not_equal():
-    assert Optional.of("PANTS") != Optional.of("thing")
+    assert Optional[str].of("PANTS") != Optional[str].of("thing")
 
 
 def test_non_empty_optionals_with_equal_content_are_equal():
-    assert Optional.of("PANTS") == Optional.of("PANTS")
+    assert Optional[str].of("PANTS") == Optional[str].of("PANTS")
 
 
 def test_can_eval_the_representation_of_an_empty_optional():
@@ -80,24 +80,24 @@ def test_can_eval_the_representation_of_an_empty_optional():
 
 
 def test_can_eval_the_representation_of_a_populated_optional():
-    optional = Optional.of("23")
+    optional = Optional[str].of("23")
     assert eval(repr(optional)) == optional
 
 
 def test_can_instantiate_an_empty_optional_via_the_zero_arity_of():
-    assert Optional.of() == Optional.empty()
+    assert Optional[None].of() == Optional.empty()
 
 
 def test_can_instantiate_an_empty_optional_via_none():
-    assert Optional.of(None) == Optional.empty()
+    assert Optional[None].of(None) == Optional.empty()
 
 
 def test_populated_optionals_are_truthy():
-    assert Optional.of("foo")
+    assert Optional[str].of("foo")
 
 
 def test_populated_optionals_are_truthy_even_if_their_value_is_falsy():
-    assert Optional.of(False)
+    assert Optional[bool].of(False)
 
 
 def test_empty_optionals_are_falsy():

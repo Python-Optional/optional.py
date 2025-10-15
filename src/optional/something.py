@@ -1,13 +1,11 @@
 from types import NotImplementedType
-from typing import Generic, TypeVar, final
+from typing import final
 
 from typing_extensions import override
 
-T = TypeVar("T")
-
 
 @final
-class Something(Generic[T]):
+class Something[T]:
     """Represents the presence of a value.
 
     Rarely instantiated on its own, see :func:`Optional.of`"""
@@ -25,7 +23,7 @@ class Something(Generic[T]):
         if not isinstance(other, Something):
             return NotImplemented
 
-        return self._value == other._value  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
+        return self._value == other._value
 
     @override
     def __repr__(self) -> str:
