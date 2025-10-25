@@ -1,6 +1,6 @@
 # pyright: reportUnnecessaryComparison=false
 # pyright: reportUnreachable=false
-# pyright: reportUnusedCallResult = false
+# pyright: reportUnusedCallResult=false
 
 import pytest
 
