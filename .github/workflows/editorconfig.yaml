@@ -15,7 +15,7 @@ jobs:
         uses: editorconfig-checker/action-editorconfig-checker@main
 
       - name: Install just
-        uses: extractions/setup-just@v3
+        uses: extractions/setup-just@v4
 
       - name: Run editorconfig-checker
         run: just editorconfig
