@@ -11,3 +11,6 @@ wheels/
 
 # Coverage
 .coverage
+
+# PDM files
+.pdm-python

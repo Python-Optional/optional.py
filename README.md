@@ -171,16 +171,16 @@ There is complete test coverage and they pass in all Python versions 3.10 and up
 
 ### Running Unit Tests
 
-First, install `uv` using the instructions located [here](https://docs.astral.sh/uv/getting-started/installation).
+First, install `pdm` using the instructions located [here](https://pdm-project.org/en/latest/#installation).
 
 Then, install the requirements using:
 
 ```bash
-uv sync --all-extras
+pdm install -G dev
 ```
 
 You can run the tests (with coverage) using:
 
 ```bash
-uv run pytest
+pdm run pytest
 ```
