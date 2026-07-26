@@ -18,13 +18,13 @@ build-backend = "hatchling.build"
 
 [project.optional-dependencies]
 dev = [
-  "basedpyright>=1.31.7",
-  "coverage>=7.10.7",
-  "coveralls>=4.0.1",
-  "pytest>=8.4.2",
-  "pytest-cov>=7.0.0",
-  "ruff>=0.15.0",
-  "typing-extensions>=4.15.0",
+  "basedpyright>=1.39.9",
+  "coverage>=7.15.2",
+  "coveralls>=4.1.0",
+  "pytest>=9.1.1",
+  "pytest-cov>=7.1.0",
+  "ruff>=0.16.0",
+  "typing-extensions>=4.16.0",
 ]
 
 [tool.hatch.build.targets.wheel]
